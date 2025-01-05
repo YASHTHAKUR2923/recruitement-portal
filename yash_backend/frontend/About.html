@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - MARQUE IMPEX</title>
+    <link rel="stylesheet" href="About.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <h1 style="color: aliceblue;">MARQUE IMPEX</h1>
+            <ul>
+               
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="form.html">Form</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <button onclick="logout()" style="float: right;">Logout</button>
+        <section class="about-section">
+
+            <h1>About MARQUE IMPEX</h1>
+            <p>Welcome to <strong>MARQUE IMPEX</strong>, a company committed to providing top-quality services and
+                products to our valued clients. With years of experience in the industry, we aim to exceed expectations
+                through innovation, reliability, and customer-centric solutions.</p>
+            <div class="team">
+                <h2>Our Team</h2>
+                <p>Our team consists of professionals with expertise in various fields, working together to deliver
+                    exceptional results. We believe in collaboration, growth, and empowering our team members to take on
+                    new challenges.</p>
+            </div>
+            <div class="values">
+                <h2>Our Values</h2>
+                <ul>
+                    <li><strong>Integrity:</strong> We maintain transparency and honesty in all our dealings.</li>
+                    <li><strong>Innovation:</strong> Constantly improving and innovating to meet industry demands.</li>
+                    <li><strong>Customer Satisfaction:</strong> Our clients are at the heart of everything we do.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+
+
+    <script>
+        // Logout functionality
+        function logout() {
+            localStorage.removeItem("isLoggedIn");
+            localStorage.removeItem("role");
+            window.location.href = "login.html";
+        }
+
+        // Redirect if not logged in
+        if (localStorage.getItem("isLoggedIn") !== "true") {
+            window.location.href = "login.html";
+        }
+
+        // Load queries on page load
+        window.onload = loadQueries;
+
+    </script>
+
+
+
+    <footer>
+        <p>&copy; 2024 MARQUE IMPEX</p>
+    </footer>
+
+</body>
+
+</html>

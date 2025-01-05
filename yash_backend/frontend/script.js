@@ -1,32 +1,31 @@
   
   // this script is index.html
   // Role check for admin functionality
-  const role = localStorage.getItem("role");
+  // Get role from localStorage
+const role = localStorage.getItem("role");
 
-  // Show admin-specific elements
-  if (role === "admin") {
-    document.getElementById("career-link").style.display = "inline-block";
-    document.getElementById("addQueryButton").style.display = "inline-block";
-    document.getElementById("admin_dashboard").style.display = "inline-block";
-    
-  }
+// Show admin-specific elements
+if (role === "admin") {
+  document.getElementById("career-link").style.display = "inline-block";
+  document.getElementById("addQueryButton").style.display = "inline-block";
+  document.getElementById("admin_dashboard").style.display = "inline-block";
+}
 
-  // Open and close modal for adding a query
-  function openAddQueryForm() {
-    document.getElementById("modalOverlay").style.display = "block";
-    document.getElementById("queryModal").style.display = "block";
-  }
+// Open and close modal for adding a query
+function openAddQueryForm() {
+  document.getElementById("modalOverlay").style.display = "block";
+  document.getElementById("queryModal").style.display = "block";
+}
 
-  function closeAddQueryForm() {
-    document.getElementById("modalOverlay").style.display = "none";
-    document.getElementById("queryModal").style.display = "none";
-  }
+function closeAddQueryForm() {
+  document.getElementById("modalOverlay").style.display = "none";
+  document.getElementById("queryModal").style.display = "none";
+}
 
 // Retrieve stored queries and display them
 function loadQueries() {
   const storedQueries = JSON.parse(localStorage.getItem("queries")) || [];
   const queryList = document.getElementById("queryList");
-  const role = localStorage.getItem("role"); // Assume the role is stored in localStorage
   queryList.innerHTML = ""; // Clear existing queries
 
   storedQueries.forEach((query, index) => {
@@ -34,15 +33,11 @@ function loadQueries() {
     queryCard.className = "query-card";
     queryCard.innerHTML = `
       <div class="query-details">
-      
         <strong>Job Title:</strong> ${query.jobTitle}<br>
         <strong>Location:</strong> ${query.location}<br>
-        <strong>Role and responsibilty:</strong> ${query.roleandresponsibilty}<br>
-         <strong>Requirments:</strong> ${query.requirments}<br>
-         <strong>CardNo:</strong> ${query.cardNo}<br>
-
-       
-       
+        <strong>Role and Responsibility:</strong> ${query.roleandresponsibilty}<br>
+        <strong>Requirements:</strong> ${query.requirments}<br>
+        <strong>Card No:</strong> ${query.cardNo}<br>
       </div>
       ${
         role === "admin"
@@ -55,77 +50,94 @@ function loadQueries() {
   });
 }
 
-  // Function to redirect to the form page for applying
-  function applyNow() {
-    window.location.href = "form.html";  // Open the form.html when Apply Now button is clicked
+// Function to redirect to the form page for applying
+function applyNow() {
+  window.location.href = "form.html"; // Open the form.html when Apply Now button is clicked
+}
+
+// Add query to the backend and update the UI
+document.getElementById("queryForm").addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  // Get form data
+  const jobTitle = document.getElementById("queryJobTitle").value;
+  const location = document.getElementById("queryLocation").value;
+  const requirements = document.getElementById("queryRequirments").value;
+  const roleandresponsibilty = document.getElementById("queryRoleandresponsibilty").value;
+  const cardNo = document.getElementById("queryCardNo").value;
+
+  // API endpoint
+  const url = "http://localhost:8000/create_vacancy";
+
+  // Request payload
+  const payload = {
+    card_no: cardNo,
+    job_title: jobTitle,
+    location: location,
+    roles_and_responsibility: roleandresponsibilty,
+    requirements: requirements,
+  };
+
+  try {
+    // Send POST request to add the query to the backend
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await response.json();
+
+    // Handle response
+    if (response.status === 201) {
+      alert("Vacancy created successfully!");
+
+      // Save query to localStorage for offline access
+      const query = { requirements, roleandresponsibilty, location, jobTitle, cardNo };
+      const storedQueries = JSON.parse(localStorage.getItem("queries")) || [];
+      storedQueries.push(query);
+      localStorage.setItem("queries", JSON.stringify(storedQueries));
+
+      // Refresh the query list
+      loadQueries();
+
+      // Clear form and close modal
+      document.getElementById("queryForm").reset();
+      closeAddQueryForm();
+    } else {
+      alert(`Error: ${data.message || "Something went wrong"}`);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Failed to create a vacancy. Please check your connection and try again.");
   }
+});
 
-  // Add query to the list and store it
-  document.getElementById("queryForm").addEventListener("submit", function (e) {
-    e.preventDefault();
+// Delete a query from the list
+function deleteQuery(index) {
+  let storedQueries = JSON.parse(localStorage.getItem("queries")) || [];
+  storedQueries.splice(index, 1); // Remove query at the specified index
+  localStorage.setItem("queries", JSON.stringify(storedQueries)); // Update localStorage
+  loadQueries(); // Refresh the query list
+}
 
-    const jobTitle = document.getElementById("queryJobTitle").value;
-    const location = document.getElementById("queryLocation").value;
-    const requirments = document.getElementById("queryRequirments").value;
-    const roleandresponsibilty = document.getElementById("queryRoleandresponsibilty").value;
-    const cardNo = document.getElementById("queryCardNo").value;
+// Logout functionality
+function logout() {
+  localStorage.removeItem("isLoggedIn");
+  localStorage.removeItem("role");
+  window.location.href = "login.html";
+}
 
-   
-  
-    // Create a new query box (div)
-    const queryItem = document.createElement('div');
-    queryItem.classList.add('query-item');
+// Redirect if not logged in
+if (localStorage.getItem("isLoggedIn") !== "true") {
+  window.location.href = "login.html";
+}
 
-    // Add content to the query box
-    queryItem.innerHTML = `
-      <h4>${requirments}</h4>
-      <p><strong>Job Title:</strong> ${jobTitle}</p>
-      <p><strong>Location:</strong> ${location}</p>
-      <p><strong>Roleandresponsibilty:</strong> ${roleandresponsibilty}</p>
-      <p><strong>CardNo:</strong> ${cardNo}</p>
+// Load queries on page load
+window.onload = loadQueries;
 
-      
-      <button onclick="applyNow()">Apply Now</button>
-    `;
-
-    // Append the new query item to the query list
-    document.getElementById('queryList').appendChild(queryItem);
-
-    // Save the query in local storage
-    const query = { requirments, roleandresponsibilty, location,  jobTitle,cardNo };
-    const storedQueries = JSON.parse(localStorage.getItem("queries")) || [];
-    storedQueries.push(query);
-    localStorage.setItem("queries", JSON.stringify(storedQueries));
-
-    // Refresh the query list
-    loadQueries();
-
-    // Clear form and close modal
-    document.getElementById("queryForm").reset();
-    closeAddQueryForm();
-  });
-
-  // Delete a query from the list
-  function deleteQuery(index) {
-    let storedQueries = JSON.parse(localStorage.getItem("queries")) || [];
-    storedQueries.splice(index, 1); // Remove query at the specified index
-    localStorage.setItem("queries", JSON.stringify(storedQueries)); // Update storage
-    loadQueries(); // Refresh the query list
-  }
-
-  // Logout functionality
-  function logout() {
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("role");
-    window.location.href = "login.html";
-  }
-
-  // Redirect if not logged in
-  if (localStorage.getItem("isLoggedIn") !== "true") {
-    window.location.href = "login.html";
-  }
-  // Load queries on page load
-  window.onload = loadQueries;
 
 
 

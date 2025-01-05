@@ -55,14 +55,14 @@ class VacancyView(APIView):
         try:
             # get employee
             try: 
-                get_employee = Employee.objects.get(card_no=__card_no)
+                __get_employee = Employee.objects.get(card_no=__card_no)
             except Exception as e:
                 print(f"exception- : {e}")
                 return Response({"Message": str(e)})
             
 
             vacancy = Vacancy.objects.create(
-                employee=get_employee,
+                employee=__get_employee,
                 job_title=job_title,
                 location=location,
                 roles_and_responsibility=roles_and_responsibility,
@@ -71,12 +71,21 @@ class VacancyView(APIView):
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        # Return the created vacancy's details
+        
+        __employee_data = {
+            "name": __get_employee.name,
+            "designation": __get_employee.designation,
+            "department": __get_employee.department,
+            "mobile_no": __get_employee.mobile_no,
+            "email": __get_employee.email
+        }
+
         return Response(
             {
                 "message": "Vacancy created successfully.",
                 "vacancy_id": vacancy.id,
-                "vacancy_jobtitle": vacancy.job_title
+                "vacancy_jobtitle": vacancy.job_title,
+                **__employee_data
             },
             status=status.HTTP_201_CREATED,
         )

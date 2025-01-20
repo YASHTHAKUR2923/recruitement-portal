@@ -5,25 +5,37 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Application Form</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="All CSS/style.css">
 </head>
 <body>
 
 
+  
   <nav>
     <ul>
-      <h1><span>MARQUE IMPEX</span></h1>
-      <button id="addQueryButton" style="display: none;" onclick="openAddQueryForm()">+ Add Query</button>
-      <br> <br>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="form.html">Form</a></li> <!-- Link to form page -->
-      <!-- <li><a href="career.html">Career</a></li> -->
-      <!-- <li><a href="#contact-us">Contact Us</a></li> -->
-      <li><a href="about.html">About</a></li>
-
+      <h1><span >MARQUE IMPEX</span></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <p style="font-weight: bold; font-size: 30px; color: white;">Application Form</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <li class="dropdown" >
+        <a href="javascript:void(0)" class="dropbtn" onclick="toggleDropdown()">Menu</a>
+        <div class="dropdown-content" id="dropdownContent" style="display: none; position: absolute; border-radius: 8px; background-color: #f9f9f9; min-width: 160px; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); z-index: 1;">
+          <a href="admin_dashboard.html" id="admin_dashboard">Admin</a>
+          <a href="index.html">Home</a>
+          <a href="form.html" id="form-link">Form</a>
+          
+          <a href="career.html" id="career-link" style="display: none;">Career</a>
+          <!-- <button onclick="logout()" style="float:none; color: #ffffff; font-size: 10px; background-color: #0f9ca6; margin: 10px;">Logout</button> -->
+          
+          <btn onclick="logout()" id="logbtn" style="float:none; color: #ffffff; font-size: 15px; background-color: #04767e; margin: 10px; cursor: pointer; padding: 8px; border-radius: 8px; display: block; text-align: center;">Logout</btn>
+        </div>
+      </li>
     </ul>
+  
   </nav>
-  <button onclick="logout()" style="float: right; margin-top: 10px;">Logout</button>
+  
+  
+  
+  
   
   <section id="application-form">
   
@@ -109,8 +121,8 @@
       <textarea id="otherDetails" name="otherDetails" rows="4"
         placeholder="Enter any additional information"></textarea>
 
-      <label for="resume">Upload Resume:</label>
-      <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required />
+        <input type="file" id="fileInput" accept="image/*, application/pdf" />
+      
 
       <button type="submit" class="submit-button">Submit Application</button>
     </form>

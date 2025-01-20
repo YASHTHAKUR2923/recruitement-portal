@@ -89,14 +89,24 @@ WSGI_APPLICATION = 'yash_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'yash_db',       
+        'NAME': 'yash-db',       
         'USER': 'postgres',           
-        'PASSWORD': 'testing@321',   
+        'PASSWORD': 'yash2923',   
         'HOST': 'localhost',        
         'PORT': '5432',             
     }
 }
 
+
+# settings.py
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com' 
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'ishirastogi12345@gmail.com' 
+EMAIL_HOST_PASSWORD = 'hemu imyr ktbl gomm'  
+DEFAULT_FROM_EMAIL = 'ishirastogi12345@gmail.com'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -146,3 +156,4 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:5500',
     'http://127.0.0.1:5503',
 ]
+  

@@ -7,5 +7,5 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Vacancy)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('employee', 'job_title', 'location', 'roles_and_responsibility', 'requirements', 'created_at')
+    list_display = ('employee', 'job_title', 'location', 'roles_and_responsibility', 'requirements', 'created_at','department')
 

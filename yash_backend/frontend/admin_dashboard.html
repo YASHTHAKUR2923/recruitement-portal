@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <!-- Bootstrap CSS -->
-     <link rel="stylesheet" href="admin.css">
+     <link rel="stylesheet" href="All CSS/admin.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
  
 </head>
@@ -15,19 +15,31 @@
 
     <nav>
         <ul>
-            <h1><span style="font-weight: 400;">Admin Dashboard</span></h1>
-            <button id="addQueryButton" style="display: none;" onclick="openAddQueryForm()">+ Add Query</button>
-            <br><br>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="form.html">Form</a></li>
-            <a href="career.html" id="career-link" style="display: none; font-size: 19px;">Career</a>
-            <!-- Hidden by default -->
-            <li><a href="about.html" style="font-size: 19px;">About</a></li>
+          <h1><span style="font-size: 30px;">MARQUE IMPEX</span></h1>&nbsp;&nbsp;&nbsp;
+          <p style="font-weight: bold; font-size: 30px; color: white;">Job Vacancies</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <li class="dropdown" >
+            <a href="javascript:void(0)" class="dropbtn" onclick="toggleDropdown()">Menu</a>
+            <div class="dropdown-content" id="dropdownContent"style="display: none; position: absolute; border-radius: 8px; background-color: #f9f9f9; min-width: 160px; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); z-index:  1;  "  >
+              <a href="admin_dashboard.html" id="admin_dashboard" >Admin</a>
+              <a href="index.html">Home</a>
+              <a href="form.html" id="form-link">Form</a>
+              
+              <a href="career.html" id="career-link" >Career</a>
+              <!-- <button onclick="logout()" style="float:none; color: #ffffff; font-size: 10px; background-color: #0f9ca6; margin: 10px;">Logout</button> -->
+              
+              <btn onclick="logout()" id="logbtn" style="float:none; color: #ffffff; font-size: 15px; background-color: #04767e; margin: 10px; cursor: pointer; padding: 8px; border-radius: 8px; display: block; text-align: center;">Logout</btn>
+            </div>
+          </li>
         </ul>
-    </nav>
+        <ul>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <button id="addQueryButton" style="display: none;" onclick="openAddQueryForm()">+ Add Vacancy</button>
+     
+        </ul>
+      </nav>
 
-    <button onclick="logout()"
-        style="float: right; color: #ffffff; background-color: #008089; margin: 10px;">Logout</button>
+    <!-- <button onclick="logout()"
+        style="float: right; color: #ffffff; background-color: #008089; margin: 10px;">Logout</button> -->
 
 
 
@@ -208,6 +220,33 @@ window.onload = loadQueries;
 
         // Role-based actions or content can be handled here if necessary
     </script>
+
+
+<script>
+    // drop down button
+function toggleDropdown() {
+  const dropdown = document.getElementById("dropdownContent");
+  if (dropdown.style.display === "none" || dropdown.style.display === "") {
+    dropdown.style.display = "block"; // Show dropdown
+  } else {
+    dropdown.style.display = "none"; // Hide dropdown
+  }
+}
+
+// Optional: Close the dropdown if the user clicks outside of it
+document.addEventListener("click", function (event) {
+  const dropdown = document.getElementById("dropdownContent");
+  const dropbtn = document.querySelector(".dropbtn");
+  
+  if (!dropdown.contains(event.target) && !dropbtn.contains(event.target)) {
+    dropdown.style.display = "none"; // Hide dropdown
+  }
+});
+
+</script>
+
+
+
 </body>
 
 </html>

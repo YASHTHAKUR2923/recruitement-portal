@@ -22,6 +22,7 @@ class Vacancy(models.Model):
     roles_and_responsibility = models.TextField()
     requirements = models.TextField()
     created_at = models.DateTimeField(auto_now=True)
+    department = models.CharField(max_length=100)
 
     def __str__(self):
         return self.job_title

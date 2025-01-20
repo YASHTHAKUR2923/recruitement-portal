@@ -1,23 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Career applications</title>
-    <link rel="stylesheet" href="career.css">
+    <link rel="stylesheet" href="All CSS/career.css">
     <nav>
         <ul>
+            <h1><span style="color: white;">MARQUE IMPEX</span></h1>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <p style="font-weight: bold; font-size: 40px; color: white;font-family: 'Arial', sans-serif;">Applicants
+                List</p>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-            <li><a href="index.html">Home</a></li>
-            <li><a href="form.html">Form</a></li>
-            <li><a href="career.html">Career</a></li>
-            <li><a href="about.html">About</a></li>
+            <!-- <button id="addQueryButton" style="display: none;" onclick="openAddQueryForm()">+ Add Query</button>
+       -->
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn" onclick="toggleDropdown()">Menu</a>
+                <div class="dropdown-content" id="dropdownContent"
+                    style="display: none; position: absolute; background-color: #f9f9f9; min-width: 160px; box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); z-index: 1;">
+                    <a href="admin_dashboard.html" id="admin_dashboard">Admin</a>
+                    <a href="index.html">Home</a>
+                    <a href="form.html" id="form-link">Form</a>
+
+                    <a href="career.html" id="career-link">Career</a>
+                    <!-- <button onclick="logout()" style="float:none; color: #ffffff; font-size: 10px; background-color: #0f9ca6; margin: 10px;">Logout</button> -->
+
+                    <btn onclick="logout()" id="logbtn"
+                        style="float:none; color: #ffffff; font-size: 15px; background-color: #04767e; margin: 10px; cursor: pointer; padding: 8px; border: none; display: block; text-align: center;">
+                        Logout</btn>
+                </div>
+            </li>
         </ul>
+        <ul>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="addQueryButton" style="display: none;" onclick="openAddQueryForm()">+ Add Vacancy</button>
+
     </nav>
+
+
 </head>
 
 <body>
-    <h1>Applications</h1>
 
     <!-- Filter by job position -->
     <div>
@@ -57,6 +82,9 @@
                     <th>Other Details</th>
                     <th>Status</th>
                     <th>Actions</th>
+                
+                    
+                    
                 </tr>
             </thead>
             <tbody id="applications-table-body">
@@ -64,37 +92,38 @@
             </tbody>
         </table>
     </div>
-    <button onclick="logout()"
-        style="float: right; color: #ffffff; background-color: #008089; margin: 10px;">Logout</button>
+    <!-- <button onclick="logout()"
+        style="float: right; color: #ffffff; background-color: #008089; margin: 10px;">Logout</button> -->
+
 
 
 
         <script>
-            let applications = []; // Global variable to hold application data
-    
-            // Fetch applications from localStorage on page load
-            window.onload = function () {
-                applications = JSON.parse(localStorage.getItem("applications")) || [];
-                displayApplications(applications);
-    
-                // Populate filter dropdown with job positions
-                const jobPositions = [...new Set(applications.map(app => app.jobPosition))];
-                const filterSelect = document.getElementById("filter-job-position");
-                jobPositions.forEach(position => {
-                    const option = document.createElement("option");
-                    option.value = position;
-                    option.textContent = position;
-                    filterSelect.appendChild(option);
-                });
-            };
-            // Display applications in the table
-            function displayApplications(data) {
-                const tableBody = document.getElementById("applications-table-body");
-                tableBody.innerHTML = ""; // Clear existing rows
-    
-                data.forEach((app, index) => {
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
+        let applications = []; // Global variable to hold application data
+
+        // Fetch applications from localStorage on page load
+        window.onload = function () {
+            applications = JSON.parse(localStorage.getItem("applications")) || [];
+            displayApplications(applications);
+
+            // Populate filter dropdown with job positions
+            const jobPositions = [...new Set(applications.map(app => app.jobPosition))];
+            const filterSelect = document.getElementById("filter-job-position");
+            jobPositions.forEach(position => {
+                const option = document.createElement("option");
+                option.value = position;
+                option.textContent = position;
+                filterSelect.appendChild(option);
+            });
+        };
+        // Display applications in the table
+        function displayApplications(data) {
+            const tableBody = document.getElementById("applications-table-body");
+            tableBody.innerHTML = ""; // Clear existing rows
+
+            data.forEach((app, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
                 <td>${app.name}</td>
                 <td>${app.email}</td>
                 <td>${app.phone}</td>
@@ -120,110 +149,135 @@
                         <option value="Rejected" ${app.status === 'Rejected' ? 'selected' : ''}>Rejected</option>
                     </select>
                 </td>
-                <td>
-                    <button onclick="downloadIndividualCSV(${index})">Download</button>
-                    <button class="delete-button" onclick="deleteApplication(${index})">Delete</button>
-                </td>
+                
+                 <td>
+        <button onclick="downloadResume(${index})">Download Resume</button>
+        <button class="delete-button" onclick="deleteApplication(${index})">Delete</button>
+      </td>
             `;
-                    tableBody.appendChild(row);
-                });
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Delete a row
+        function deleteApplication(index) {
+            if (confirm("Are you sure you want to delete this application?")) {
+                applications.splice(index, 1); // Remove the application at the given index
+                localStorage.setItem("applications", JSON.stringify(applications)); // Update localStorage
+                displayApplications(applications); // Re-render the table
             }
-    
-            // Delete a row
-            function deleteApplication(index) {
-                if (confirm("Are you sure you want to delete this application?")) {
-                    applications.splice(index, 1); // Remove the application at the given index
-                    localStorage.setItem("applications", JSON.stringify(applications)); // Update localStorage
-                    displayApplications(applications); // Re-render the table
-                }
+        }
+
+        // Update application status
+        function updateStatus(index, status) {
+            applications[index].status = status;
+            localStorage.setItem("applications", JSON.stringify(applications));
+            alert(`Status updated to "${status}" for ${applications[index].name}`);
+            displayApplications(applications);
+        }
+
+        // Filter applications by job position
+        function filterApplications() {
+            const selectedJob = document.getElementById("filter-job-position").value;
+            const filteredData = selectedJob
+                ? applications.filter(app => app.jobPosition === selectedJob)
+                : applications;
+            displayApplications(filteredData);
+        }
+
+        
+        function downloadResume(index) {
+  const app = applications[index];
+  if (app.resume) {
+    const link = document.createElement("a");
+    link.href = app.resume;
+    link.download = app.resumeName || "resume";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } else {
+    alert("No resume uploaded for this application.");
+  }
+}
+
+      
+
+     
+
+        // Export shortlisted candidates
+        function exportShortlisted() {
+            const shortlisted = applications.filter(app => app.status === "Shortlisted");
+            if (shortlisted.length === 0) {
+                alert("No shortlisted candidates found!");
+                return;
             }
-    
-            // Update application status
-            function updateStatus(index, status) {
-                applications[index].status = status;
-                localStorage.setItem("applications", JSON.stringify(applications));
-                alert(`Status updated to "${status}" for ${applications[index].name}`);
-                displayApplications(applications);
+
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += "Name,Email,Phone,Job Position,Resume Link\n";
+            shortlisted.forEach(app => {
+                csvContent += `${app.name},${app.email},${app.phone},${app.gender},${app.age},${app.qualification},${app.experience},${app.jobPosition},${app.currentCompany},${app.currentDesignation},${app.currentRole},${app.currentCTC},${app.expectedCTC},${app.reasonLeaving},${app.currentLocation},${app.belongsTo},${app.noticePeriod},${app.otherDetails},${app.resumeLink}\n`;
+            });
+
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "shortlisted_candidates.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Show resume
+        function showResume(link) {
+            if (link) {
+                window.open(link, "_blank");
+            } else {
+                alert("No resume available for this candidate.");
             }
-    
-            // Filter applications by job position
-            function filterApplications() {
-                const selectedJob = document.getElementById("filter-job-position").value;
-                const filteredData = selectedJob
-                    ? applications.filter(app => app.jobPosition === selectedJob)
-                    : applications;
-                displayApplications(filteredData);
-            }
-    
-            // Download individual application as CSV
-            function downloadIndividualCSV(index) {
-                const app = applications[index];
-                const csvContent = `data:text/csv;charset=utf-8,
-    Name,Email,Phone,Gender,Age,Qualification,Experience,Job Position,Current Company,Current Designation,Current Role,Current CTC,Expected CTC,Reason for Leaving,Current Location,Belongs To,Notice Period,Other Details,Status\n
-    ${app.name},${app.email},${app.phone},${app.gender},${app.age},${app.qualification},${app.experience},${app.jobPosition},${app.currentCompany},${app.currentDesignation},${app.currentRole},${app.currentCTC},${app.expectedCTC},${app.reasonLeaving},${app.currentLocation},${app.belongsTo},${app.noticePeriod},${app.otherDetails},${app.status}`;
-    
-                const encodedUri = encodeURI(csvContent);
-                const link = document.createElement("a");
-                link.setAttribute("href", encodedUri);
-                link.setAttribute("download", `${app.name}_application.csv`);
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }
-    
-            // Export shortlisted candidates
-            function exportShortlisted() {
-                const shortlisted = applications.filter(app => app.status === "Shortlisted");
-                if (shortlisted.length === 0) {
-                    alert("No shortlisted candidates found!");
-                    return;
-                }
-    
-                let csvContent = "data:text/csv;charset=utf-8,";
-                csvContent += "Name,Email,Phone,Job Position,Resume Link\n";
-                shortlisted.forEach(app => {
-                    csvContent += `${app.name},${app.email},${app.phone},${app.gender},${app.age},${app.qualification},${app.experience},${app.jobPosition},${app.currentCompany},${app.currentDesignation},${app.currentRole},${app.currentCTC},${app.expectedCTC},${app.reasonLeaving},${app.currentLocation},${app.belongsTo},${app.noticePeriod},${app.otherDetails},${app.resumeLink}\n`;
-                });
-    
-    
-                const encodedUri = encodeURI(csvContent);
-                const link = document.createElement("a");
-                link.setAttribute("href", encodedUri);
-                link.setAttribute("download", "shortlisted_candidates.csv");
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }
-    
-            // Show resume
-            function showResume(link) {
-                if (link) {
-                    window.open(link, "_blank");
-                } else {
-                    alert("No resume available for this candidate.");
-                }
-            }
-    
-    
-            // Logout functionality
-            function logout() {
-                localStorage.removeItem("isLoggedIn");
-                localStorage.removeItem("role");
-                window.location.href = "login.html";
-            }
-    
-            // Redirect if not logged in
-            if (localStorage.getItem("isLoggedIn") !== "true") {
-                window.location.href = "login.html";
-            }
-    
-            // Load queries on page load
-            window.onload = loadQueries;
-        </script>
+        }
+
+
+        // Logout functionality
+        function logout() {
+            localStorage.removeItem("isLoggedIn");
+            localStorage.removeItem("role");
+            window.location.href = "login.html";
+        }
+
+        // Redirect if not logged in
+        if (localStorage.getItem("isLoggedIn") !== "true") {
+            window.location.href = "login.html";
+        }
+
+        // Load queries on page load
+        window.onload = loadQueries;
+    </script>
 
 
 
+    <script>
+        // drop down button
+        function toggleDropdown() {
+            const dropdown = document.getElementById("dropdownContent");
+            if (dropdown.style.display === "none" || dropdown.style.display === "") {
+                dropdown.style.display = "block"; // Show dropdown
+            } else {
+                dropdown.style.display = "none"; // Hide dropdown
+            }
+        }
 
+        // Optional: Close the dropdown if the user clicks outside of it
+        document.addEventListener("click", function (event) {
+            const dropdown = document.getElementById("dropdownContent");
+            const dropbtn = document.querySelector(".dropbtn");
+
+            if (!dropdown.contains(event.target) && !dropbtn.contains(event.target)) {
+                dropdown.style.display = "none"; // Hide dropdown
+            }
+        });
+
+    </script>
 
 
 

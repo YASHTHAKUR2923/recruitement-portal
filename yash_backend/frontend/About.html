@@ -5,20 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - MARQUE IMPEX</title>
-    <link rel="stylesheet" href="About.css">
+    <link rel="stylesheet" href="All CSS/About.css">
 </head>
 
 <body>
     <header>
         <nav>
-            <h1 style="color: aliceblue;">MARQUE IMPEX</h1>
+    
             <ul>
-               
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="form.html">Form</a></li>
+              
+              <h1><span>MARQUE IMPEX</span></h1>
+              <button id="addQueryButton" style="display: none;" onclick="openAddQueryForm()">+ Add Query</button>
+              <br><br>
+              <li><a href="#home">Home</a></li>
+              <li><a href="admin_dashboard.html" id="admin_dashboard" style="display: none; font-size: 19px;">Home</a></li>
+              <li><a href="form.html">Form</a></li>
+              <a href="career.html" id="career-link" style="display: none; font-size: 19px;">Career</a> <!-- Hidden by default -->    
+              <li><a href="about.html" style="font-size: 19px;">About</a></li>
+              
             </ul>
-        </nav>
+            
+          </nav>
+          
     </header>
     <main>
         <button onclick="logout()" style="float: right;">Logout</button>
@@ -65,6 +73,9 @@
 
     </script>
 
+<script>
+    
+</script>
 
 
     <footer>

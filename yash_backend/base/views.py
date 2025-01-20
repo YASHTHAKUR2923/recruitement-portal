@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .models import Employee, Vacancy
 from .serializers import EmployeeSerializer, VacancySerializer
 from rest_framework import status
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 from rest_framework.response import Response
@@ -36,10 +38,11 @@ class EmployeeQueryView(APIView):
             return Response({"Message": str(e)})
         
         return Response(result, status=200)
-    
+                                           
 
 class VacancyView(APIView):
     def post(self, request, *args, **kwargs):
+
         
         __card_no = request.data.get('card_no')
         print(__card_no)
@@ -47,8 +50,11 @@ class VacancyView(APIView):
         location = request.data.get('location')
         roles_and_responsibility = request.data.get('roles_and_responsibility')
         requirements = request.data.get('requirements')
+        department   = request.data.get ('department')
+        # SubDepartment   = request.data.get ('SubDepartment')
+      
 
-        if not all([__card_no, job_title, location, roles_and_responsibility, requirements]):
+        if not all([__card_no, job_title, location, roles_and_responsibility, requirements,department]):
             return Response({"error": "All fields are required."}, status=status.HTTP_400_BAD_REQUEST)
 
         # Create the Vacancy object
@@ -66,8 +72,16 @@ class VacancyView(APIView):
                 job_title=job_title,
                 location=location,
                 roles_and_responsibility=roles_and_responsibility,
-                requirements=requirements
+                requirements=requirements,
+                department=department,
+                
             )
+
+
+            # Send email to the employee
+            self.send_email_to_employee(__get_employee.email, job_title, location, roles_and_responsibility, requirements,department)
+
+            
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
@@ -89,6 +103,29 @@ class VacancyView(APIView):
             },
             status=status.HTTP_201_CREATED,
         )
+    def send_email_to_employee(self, email, job_title, location, roles_and_responsibility, requirements,department):
+        subject = f"New Vacancy Created: {job_title}"
+        message = f"""
+        Hi,
 
+        A new vacancy has been created in {department}  department with below details.
 
+        Job Title: {job_title}
+        Location: {location}
+        Roles and Responsibilities: {roles_and_responsibility}
+        Requirements: {requirements}
+
+        Please check the details and kindly approve for further processing.
+
+        
+
+        Best Regards,
+        Marque Impex pvt. ltd.
+        """
+        recipient_list = [email]
+
+        try:
+            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipient_list)
+        except Exception as e:
+            print(f"Error sending email: {e}")
 

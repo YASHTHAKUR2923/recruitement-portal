@@ -1,82 +1,326 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Career at MARQUE IMPEX</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="All CSS/style.css">
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> -->
+  
 </head>
+
 <body>
 
-  
-
   <nav>
-    
     <ul>
-      
       <h1><span>MARQUE IMPEX</span></h1>
-      <button id="addQueryButton" style="display: none;" onclick="openAddQueryForm()">+ Add Query</button>
-      <br><br>
-      <li><a href="#home">Home</a></li>
-      <li><a href="admin_dashboard.html" id="admin_dashboard" style="display: none; font-size: 19px;">Admin Dashboard</a></li>
-      <li><a href="form.html">Form</a></li>
-      <a href="career.html" id="career-link" style="display: none; font-size: 19px;">Career</a> <!-- Hidden by default -->    
-      <li><a href="about.html" style="font-size: 19px;">About</a></li>
-      
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <p style="font-weight: bold; font-size: 30px; color: white;">Job Vacancies</p>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn" onclick="toggleDropdown()">Menu</a>
+        <div class="dropdown-content" id="dropdownContent"
+          style="display: none; position: absolute; border-radius: 8px; background-color: #f9f9f9; min-width: 160px; box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); z-index: 1;">
+          <a href="admin_dashboard.html" id="admin_dashboard" style="display: none;">Admin</a>
+          <a href="index.html">Home</a>
+          <a href="form.html" id="form-link">Form</a>&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <a href="career.html" id="career-link" style="display: none;">Career</a>
+          <!-- <button onclick="logout()" style="float:none; color: #ffffff; font-size: 10px; background-color: #0f9ca6; margin: 10px;">Logout</button> -->
+          <br>
+          <btn onclick="logout()" id="logbtn"
+            style="float:none; color: #ffffff; font-size: 15px; background-color: #04767e; margin: 10px; cursor: pointer; padding: 8px; border-radius: 8px; display: block; text-align: center;">
+            Logout</btn>
+        </div>
+      </li>
     </ul>
-    
+    <ul>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <button id="addQueryButton"  style="display: none;" onclick="openAddQueryForm()">+ Add Vacancy</button>
+
+    </ul>
   </nav>
-  
-     <button onclick="logout()" style="float: right; margin-top: 20px;">Logout</button>
-
-
 
   <!-- Home Section -->
-   <br>
-   <br>
-   
+  <br>
+  <br>
+
   <section id="home">
     <h2>Welcome to MARQUE IMPEX</h2>
-    <p>Your trusted partner in innovative solutions. Explore our website to learn more about us and exciting opportunities.</p>
+    <p>Your trusted partner in innovative solutions. Explore our website to learn more about us and exciting
+      opportunities.</p>
   </section>
 
-<!-- Query Modal -->
-<div id="modalOverlay"></div>
-<div id="queryModal">
-  <h2>Add New Query</h2>
-  <form id="queryForm">
-    <input type="text" id="queryJobTitle" placeholder="Job Title" required>
-    <input type="text" id="queryLocation" placeholder="Location" required>
-    <textarea id="queryRoleandresponsibilty" placeholder="Role and responsibilty" rows="5" required></textarea>
-    <input type="text" id="queryRequirments" placeholder=" Requirments" required>
-    <input type="text" id="queryCardNo" placeholder="CardNo" required>
-    
+    <!-- Search Bar -->
+    <section id="search-section">
+      <input type="text" id="searchBar" placeholder="Search job titles..." onkeyup="searchJobs()" />
+    </section>
+
+
+      <!-- Job Vacancies -->
+  <section id="vacancies">
+    <ul id="vacancyList">
+      <li class="vacancy" data-title="GM">General Manager (GM)</li>
+      <li class="vacancy" data-title="AGM">Assistant General Manager (AGM)</li>
+      <li class="vacancy" data-title="Manager">Manager</li>
+      <li class="vacancy" data-title="Executive">Executive</li>
+      <li class="vacancy" data-title="Sr. Executive">Senior Executive</li>
+      <li class="vacancy" data-title="DET">Design Engineer Trainee (DET)</li>
+    </ul>
+  </section>
+
+  <!-- Query Modal -->
+  <div id="modalOverlay"></div>
+  <div id="queryModal">
+    <h2>Add New Vacancy</h2>
+    <form id="queryForm">
 
 
 
-    <!-- <input type="text" id="queryExperience" placeholder="Experience (e.g., 2+ Years)" required> -->
-    
-    <button type="submit">Submit Query</button>
-    <button type="button" onclick="closeAddQueryForm()">Cancel</button>
-  </form>
-</div>
 
-<!-- Query List Section -->
-<section id="querySection">
- 
-  <div id="queryList" class="query-list"></div>
-</section>
+      <!--................................ SHOW Only ADMIN DETAILS IN THE QUERY FROM ............................................-->
+      <!-- ................................................................................................................. -->
+
+      <!-- ...........................Employee Card Number.................................................................... -->
+      <input type="text" id="queryCardNo" placeholder="Your Card Number" required>
 
 
-<script src="script.js"></script>
 
-<!-- this is footer -->
+      <!-- ...........................Vacancy nature.................................................................... -->
+      <select id="queryvacancynature" required style="display: none;">
+        <option value="Vacancy nature" disabled selected>Vacancy nature</option>
+        <option value="20 Days">20 Days </option>
+        <option value="30 Days">30 Days </option>
+        <option value="45 Days ">45 Days </option>
+      </select>
+
+
+
+      <!--............................ Dropdown oldEmployee........................................................... -->
+   
+      <select id="queryoldemployeeid" name="vacancyType" required onchange="handleVacancySelection()">
+        <option value="" disabled selected>Vacancy Type</option>
+        <option value="Replacement">Replacement</option>
+        <option value="Fresher">Fresher</option>
+        <option value="Other">Other</option>
+      </select>
+  
+      <!-- Input field for "Replacement" -->
+      <div id="queryreplacementInput">
+        <label for="replacementDetails">Enter Replacement Details:</label>
+        <input type="text" id="queryreplacementDetails" name="queryreplacementDetails" placeholder="Enter details">
+      </div>
+
+
+
+      <!--............................ Interveiwer Code........................................................... -->
+      <input type="number" id="queryinterveiwercode" placeholder="Interveiwer Code" required>
+
+      <!--............................ Interveiwer Name ........................................................... -->
+      <input type="text" id="queryinterveiwername" placeholder="Interveiwer Name" required>
+
+      <!--............................ Interveiwer Designation ........................................................... -->
+      <input type="text" id="queryinterveiwerdesignation" placeholder="Interveiwer Designation" required>
+
+
+
+
+      <!--............................ Dropdown  for Department ............................................................-->
+      <select id="querydepartment" name="department">
+        <option value="" disabled selected>-- Select Department --</option>
+        <option value="accounts_finance">ACCOUNTS & FINANCE</option>
+        <option value="admin">ADMIN</option>
+        <option value="band_saw">BAND SAW</option>
+        <option value="civil">CIVIL</option>
+        <option value="engineering">ENGINEERING</option>
+        <option value="fabric">FABRIC</option>
+        <option value="fitting">FITTING</option>
+        <option value="health_safety">HEALTH & SAFETY</option>
+        <option value="hr">HR</option>
+        <option value="it">IT</option>
+        <option value="job_work">JOB WORK</option>
+        <option value="liasioning">LIASIONING</option>
+        <option value="logistics">LOGISTICS</option>
+        <option value="maintenance">MAINTENANCE</option>
+        <option value="manufacturing_excellence">MANUFACTURING EXCELLENCE</option>
+        <option value="measurement">MEASUREMENT</option>
+        <option value="merchandising">MERCHANDISING</option>
+        <option value="metal_fabrication">METAL FABRICATION</option>
+        <option value="metal_finishing">METAL FINISHING</option>
+        <option value="metal_machine_section">METAL MACHINE SECTION</option>
+        <option value="metal_outsourcing">METAL OUTSOURCING</option>
+        <option value="npd">NPD</option>
+        <option value="office">OFFICE</option>
+        <option value="operations_support">OPERATIONS SUPPORT</option>
+        <option value="packing">PACKING</option>
+        <option value="packing_qa">PACKING QA</option>
+        <option value="ppc">PPC</option>
+        <option value="purchase">PURCHASE</option>
+        <option value="qa">Q A</option>
+        <option value="qa_marble">QA MARBLE</option>
+        <option value="rnd">R&D</option>
+        <option value="sampling">SAMPLING</option>
+        <option value="seasoning">SEASONING</option>
+        <option value="security">SECURITY</option>
+        <option value="stone_marble">STONE & MARBLE</option>
+        <option value="store">STORE</option>
+        <option value="warehouse">WAREHOUSE</option>
+        <option value="waste_management">WASTE MANAGEMENT</option>
+        <option value="wood_fabrication">WOOD FABRICATION</option>
+        <option value="wood_finishing">WOOD FINISHING</option>
+        <option value="wood_machine_section">WOOD MACHINE SECTION</option>
+        <option value="wood_outsourcing">WOOD OUTSOURCING</option>
+        <option value="wood_plant">WOOD-PLANT</option>
+        <option value="other">Other</option>
+      </select>
+
+            <!--..............................SubDepartment ............................................................-->
+
+      <input type="text" id="querySubDepartment" placeholder="Sub Department" required>
+
+      <!--................................ SHOW ONLY ADMIN DETAILS IN THE QUERY FROM ............................................-->
+
+
+  
+
+
+
+<!-- .............................................................................................................................. -->
+      <!--.........................FROM HERE IT WILL DISPLAY WHATWILL BE SHOWN TO THE USERS -->
+      <!--............................. dropdown Jobtitle.................................................................. -->
+
+      <!-- <select id="queryJobTitle" required onchange="handleOtherSelection()"> -->
+        <select id="queryJobTitle" required >
+        <option value="" disabled selected>Select Job Title</option>
+        <option value="gm">GM</option>
+        <option value="agm">AGM</option>
+        <option value="assistant_manager">ASSISTANT MANAGER</option>
+        <option value="manager">MANAGER</option>
+        <option value="executive">EXECUTIVE</option>
+        <option value="sr_executive">SR. EXECUTIVE</option>
+        <option value="det">DET</option>
+        <option value="get">GET</option>
+        <option value="management_trainee">MANAGEMENT TRAINEE</option>
+        <option value="trainee">TRAINEE</option>
+        <option value="other">Other</option>
+      </select>
+
+      <!-- ...................... .....Hidden input field for 'Other' option........................................... -->
+      <!-- <div id="otherJobTitleDiv" style="display: none; margin-top: 10px;">
+        <label for="otherJobTitle">Specify your other Job Title:</label>
+        <input type="text" id="otherJobTitle" placeholder="Enter Job Title">
+      </div> -->
+
+      <textarea id="querySkills" placeholder="Skills" rows="3" required></textarea>
+
+
+      <!--............................ dropdown location.................................................................-->
+      <select  id="queryLocation" required>
+        <option value="" disabled selected>Select Location </option>
+        <option value="Unit-1">Unit-1</option>
+        <option value="Unit-2">Unit-2</option>
+        <option value="Noida Office">Noida Office</option>
+
+      </select>
+
+      <!--...........................dropdown workexperience.......................................-->
+      <select id="queryWork_experience" required>
+        <option value="" disabled selected>Work experience (years) (Min & Max)</option>
+        <option value="less Than 1 Year">Less than 1 Year</option>
+        <option value="1 Year or Above ">1 Year or Above</option>
+        <option value="2 Year or Above ">2 Year or Above</option>
+        <option value="3 Year or Above ">3 Year or Above</option>
+        <option value="3 To 5 Years ">3 To 5 Years </option>
+        <option value="5 To 10 Years ">5 To 10 Year </option>
+      </select>
+
+
+      <!--................................dropdown queryAnnualsalaryrange.......................-->
+      <select id="queryAnnual_salary_range" required>
+        <option value="" disabled selected>Annual salary range (LPA) (Min & Max)</option>
+        <option value="2LPA to 3LPA">2LPA to 3LPA</option>
+        <option value="3LPA to 4LPA ">3LPA to 4LPA</option>
+        <option value="4LPA to 5LPA">4LPA to 5LPA</option>
+        <option value="5LPA to 6LPA">5LPA to 6LPA</option>
+        <option value="6LPA to 7LPA">6LPA to 7LPA</option>
+        <option value="7LPA to 8LPA">7LPA to 8LPA</option>
+        <option value="8LPA to 9LPA">8LPA to 9LPA</option>
+        <option value="9LPA to 10LPA">9LPA to 10LPA</option>
+        <option value="10PA to 11LPA">10LPA to 11LPA</option>
+        <option value="11PA to 12LPA">11LPA to 12LPA</option>
+        <option value="Above 12LPA">Above 12LPA</option>
+      </select>
+
+
+      <!--.........................................dropdown Qualification.................................................-->
+      <select id="queryqualification" name="queryqualification" required>
+        <option value="" disabled selected>Select your qualification</option>
+        <option value="High School">High School</option>
+        <option value="Higher Secondary (10+2)">Higher Secondary (10+2)</option>
+        <option value="Diploma">Diploma</option>
+        <option value="Under Graduate">Under Graduate</option>
+        <option value="Graduate">Graduate</option>
+        <option value="BE">BE (Bachelor of Engineering)</option>
+        <option value="BTech">BTech (Bachelor of Technology)</option>
+        <option value="BSc">BSc (Bachelor of Science)</option>
+        <option value="BA">BA (Bachelor of Arts)</option>
+        <option value="BCom">BCom (Bachelor of Commerce)</option>
+        <option value="BBA">BBA (Bachelor of Business Administration)</option>
+        <option value="BCA">BCA (Bachelor of Computer Applications)</option>
+        <option value="MBA">MBA (Master of Business Administration)</option>
+        <option value="MTech">MTech (Master of Technology)</option>
+        <option value="MSc">MSc (Master of Science)</option>
+        <option value="MA">MA (Master of Arts)</option>
+        <option value="MCom">MCom (Master of Commerce)</option>
+        <option value="MCA">MCA (Master of Computer Applications)</option>
+        <option value="PhD">PhD (Doctor of Philosophy)</option>
+        <option value="CA">CA (Chartered Accountant)</option>
+        <option value="CS">CS (Company Secretary)</option>
+        <option value="CFA">CFA (Chartered Financial Analyst)</option>
+        <option value="ITI Certificate">ITI Certificate</option>
+        <option value="Specialized Certifications">Specialized Certifications (e.g., PMP, Six Sigma)</option>
+        <option value="Others">Others</option>
+      </select>
+
+      <!--................................Hidden input field..............................................................-->
+      <div id="otherQualification">
+      <input type="text" id="queryotherQualifications" name="queryotherQualifications" placeholder="Enter your other qualification">
+      </div>
+
+      <!--................................Role And Resposnible ..............................................................-->
+      <textarea id="queryRoleandresponsibilty" placeholder="Roles & Responsible" rows="5" required></textarea>
+
+            <!--................................Recuirements..............................................................-->
+      <input type="text" id="queryRequirements" placeholder=" Requirements" required>
+
+
+
+
+      <!--................................Submit Query Form..............................................................-->
+
+      <button type="submit">Submit Query</button>
+      <button type="button" onclick="closeAddQueryForm()">Cancel</button>
+    </form>
+  </div>
+
+  <!-- Query List Section -->
+  <section id="querySection">
+
+    <div id="queryList" class="query-list"></div>
+  </section>
+
+
+  <script src="script.js"></script>
+
+  <!-- this is footer -->
   <footer>
     <div class="footer-container">
       <div class="footer-section about">
         <h3>About MARQUE IMPEX</h3>
-        <p>We are a leading company offering innovative solutions and a dynamic work environment. Join us to shape a brighter future together.</p>
+        <p>We are a leading company offering innovative solutions and a dynamic work environment. Join us to shape a
+          brighter future together.</p>
       </div>
       <div class="footer-section links">
         <h3>Quick Links</h3>
@@ -94,13 +338,13 @@
       </div>
       <div class="footer-section social-media">
         <h3>Follow Us</h3>
-        
-        
+
+
         <a href="https://facebook.com" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
         <a href="https://twitter.com" target="_blank" class="social-icon"><i class="fab fa-twitter"></i></a>
         <a href="https://linkedin.com" target="_blank" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
         <a href="https://instagram.com" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
-       
+
 
       </div>
     </div>
@@ -108,6 +352,7 @@
       <p>&copy; 2024 MARQUE IMPEX. All Rights Reserved.</p>
     </div>
   </footer>
-  
+
 </body>
+
 </html>

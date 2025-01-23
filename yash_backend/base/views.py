@@ -4,8 +4,6 @@ from .serializers import EmployeeSerializer, VacancySerializer
 from rest_framework import status
 from django.core.mail import send_mail
 from django.conf import settings
-
-
 from rest_framework.response import Response
 from rest_framework.generics import CreateAPIView, ListAPIView, GenericAPIView
 from rest_framework.views import APIView
@@ -79,7 +77,7 @@ class VacancyView(APIView):
 
 
             # Send email to the employee
-            self.send_email_to_employee(__get_employee.email, job_title, location, roles_and_responsibility, requirements,department)
+            self.send_email_to_employee(__get_employee.email, job_title, location, roles_and_responsibility, requirements,department, vacancy.id)
 
             
         except Exception as e:
@@ -103,8 +101,12 @@ class VacancyView(APIView):
             },
             status=status.HTTP_201_CREATED,
         )
-    def send_email_to_employee(self, email, job_title, location, roles_and_responsibility, requirements,department):
+    def send_email_to_employee(self, email, job_title, location, roles_and_responsibility, requirements,department, vacancy_id):
         subject = f"New Vacancy Created: {job_title}"
+
+         # Construct the vacancy URL with the vacancy_id
+        vacancy_url = f"{settings.FRONTEND_URL}/vacancy.html?vacancy_id={vacancy_id}"
+
         message = f"""
         Hi,
 
@@ -115,9 +117,12 @@ class VacancyView(APIView):
         Roles and Responsibilities: {roles_and_responsibility}
         Requirements: {requirements}
 
+        You can review the vacancy and either approve it or delete it by following the link below:
+
+         <a href="{vacancy_url}">Review Vacancy</a>
+
         Please check the details and kindly approve for further processing.
 
-        
 
         Best Regards,
         Marque Impex pvt. ltd.
@@ -129,3 +134,41 @@ class VacancyView(APIView):
         except Exception as e:
             print(f"Error sending email: {e}")
 
+class ApproveVacancyView(APIView):
+    def post(self, request, vacancy_id, *args, **kwargs):
+        try:
+            # Fetch the vacancy by its ID
+            vacancy = Vacancy.objects.get(id=vacancy_id)
+            employee = vacancy.employee  # Get the employee who created the vacancy
+            
+            # Mark the vacancy as approved
+            vacancy.is_approved = True
+            vacancy.save()
+
+            # Send approval email to the employee
+            self.send_approval_email(employee.email, vacancy.job_title, vacancy)
+
+            return Response({
+                "message": "Vacancy approved successfully"
+            }, status=status.HTTP_200_OK)
+
+        except Vacancy.DoesNotExist:
+            return Response({"error": "Vacancy not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    def send_approval_email(self, employee_email, job_title, vacancy):
+        # Send email to the employee who created the vacancy
+        subject = f"Your Vacancy has been Approved for: {job_title}"
+        message = f"""
+        Hi {vacancy.employee.name},
+
+        We are pleased to inform you that your created vacancy for the position of {job_title} in the {vacancy.department} department at {vacancy.location} has been approved.
+
+        Best Regards,
+        Marque Impex Pvt.Ltd.
+        """
+        recipient_email = vacancy.employee.email  # Assuming you have an 'employee' field related to the Vacancy model
+
+        try:
+            send_mail(subject, message, 'impexmarque@gmail.com', [recipient_email])
+        except Exception as e:
+            print(f"Error sending email: {e}")

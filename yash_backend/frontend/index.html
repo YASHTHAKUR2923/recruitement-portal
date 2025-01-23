@@ -39,6 +39,7 @@
     <ul>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <button id="addQueryButton"  style="display: none;" onclick="openAddQueryForm()">+ Add Vacancy</button>
+      
 
     </ul>
   </nav>
@@ -84,12 +85,25 @@
       <!-- ................................................................................................................. -->
 
       <!-- ...........................Employee Card Number.................................................................... -->
+
+
+      <label for="CardNo">Your Card Number:</label>
       <input type="text" id="queryCardNo" placeholder="Your Card Number" required>
 
 
 
+
+                         <!-- Employee Details Section -->
+                     <div class="employee-details-section"></div>
+
+
+
+
+
+
       <!-- ...........................Vacancy nature.................................................................... -->
-      <select id="queryvacancynature" required style="display: none;">
+      <label for="vacancynature">Vacancy nature:</label>
+      <select id="queryvacancynature" required>
         <option value="Vacancy nature" disabled selected>Vacancy nature</option>
         <option value="20 Days">20 Days </option>
         <option value="30 Days">30 Days </option>
@@ -99,7 +113,7 @@
 
 
       <!--............................ Dropdown oldEmployee........................................................... -->
-   
+      <label for="vacancynature">Vacancy Type:</label>
       <select id="queryoldemployeeid" name="vacancyType" required onchange="handleVacancySelection()">
         <option value="" disabled selected>Vacancy Type</option>
         <option value="Replacement">Replacement</option>
@@ -109,25 +123,31 @@
   
       <!-- Input field for "Replacement" -->
       <div id="queryreplacementInput">
-        <label for="replacementDetails">Enter Replacement Details:</label>
-        <input type="text" id="queryreplacementDetails" name="queryreplacementDetails" placeholder="Enter details">
+        <label for="replacementDetails">Enter Old Employee ID:</label>
+        <input type="text" id="queryreplacementDetails" name="queryreplacementDetails" placeholder="Enter Old Employee ID">
       </div>
 
 
 
       <!--............................ Interveiwer Code........................................................... -->
+      <label for="interveiwercode">Interveiwer Code:</label>
       <input type="number" id="queryinterveiwercode" placeholder="Interveiwer Code" required>
 
+
       <!--............................ Interveiwer Name ........................................................... -->
+      <label for="interveiwername">Interveiwer Name:</label>
       <input type="text" id="queryinterveiwername" placeholder="Interveiwer Name" required>
 
       <!--............................ Interveiwer Designation ........................................................... -->
+
+      <label for="interveiwerdesignation">Interveiwer Designation:</label>
       <input type="text" id="queryinterveiwerdesignation" placeholder="Interveiwer Designation" required>
 
 
 
 
       <!--............................ Dropdown  for Department ............................................................-->
+      <label for="department">Department:</label>
       <select id="querydepartment" name="department">
         <option value="" disabled selected>-- Select Department --</option>
         <option value="accounts_finance">ACCOUNTS & FINANCE</option>
@@ -177,7 +197,7 @@
       </select>
 
             <!--..............................SubDepartment ............................................................-->
-
+            <label for="subdepartment">Sub-Department:</label>
       <input type="text" id="querySubDepartment" placeholder="Sub Department" required>
 
       <!--................................ SHOW ONLY ADMIN DETAILS IN THE QUERY FROM ............................................-->
@@ -191,8 +211,8 @@
       <!--.........................FROM HERE IT WILL DISPLAY WHATWILL BE SHOWN TO THE USERS -->
       <!--............................. dropdown Jobtitle.................................................................. -->
 
-      <!-- <select id="queryJobTitle" required onchange="handleOtherSelection()"> -->
-        <select id="queryJobTitle" required >
+      <label for="JobTitle">Job Title:</label>
+      <select id="queryJobTitle" required onchange="handleJobTitleChange()">
         <option value="" disabled selected>Select Job Title</option>
         <option value="gm">GM</option>
         <option value="agm">AGM</option>
@@ -206,17 +226,20 @@
         <option value="trainee">TRAINEE</option>
         <option value="other">Other</option>
       </select>
+      
+      <!-- Hidden input field for custom job title -->
 
-      <!-- ...................... .....Hidden input field for 'Other' option........................................... -->
-      <!-- <div id="otherJobTitleDiv" style="display: none; margin-top: 10px;">
-        <label for="otherJobTitle">Specify your other Job Title:</label>
-        <input type="text" id="otherJobTitle" placeholder="Enter Job Title">
-      </div> -->
-
+      <div id="customJobTitleField" style="display: none; margin-top: 10px;">
+        <label for="customJobTitle">Enter Job Title:</label>
+        <input type="text" id="customJobTitle" placeholder="Enter your job title" />
+      </div>
+     
+      <label for="skills">Skills:</label>
       <textarea id="querySkills" placeholder="Skills" rows="3" required></textarea>
 
 
       <!--............................ dropdown location.................................................................-->
+      <label for="location">Location:</label>      
       <select  id="queryLocation" required>
         <option value="" disabled selected>Select Location </option>
         <option value="Unit-1">Unit-1</option>
@@ -226,6 +249,7 @@
       </select>
 
       <!--...........................dropdown workexperience.......................................-->
+      <label for="Work experience">Work Experience:</label>      
       <select id="queryWork_experience" required>
         <option value="" disabled selected>Work experience (years) (Min & Max)</option>
         <option value="less Than 1 Year">Less than 1 Year</option>
@@ -238,6 +262,7 @@
 
 
       <!--................................dropdown queryAnnualsalaryrange.......................-->
+      <label for="Annual salary range">Annual Salary Range:</label>      
       <select id="queryAnnual_salary_range" required>
         <option value="" disabled selected>Annual salary range (LPA) (Min & Max)</option>
         <option value="2LPA to 3LPA">2LPA to 3LPA</option>
@@ -255,6 +280,7 @@
 
 
       <!--.........................................dropdown Qualification.................................................-->
+      <label for="qualification">Qualification:</label>
       <select id="queryqualification" name="queryqualification" required>
         <option value="" disabled selected>Select your qualification</option>
         <option value="High School">High School</option>
@@ -283,16 +309,20 @@
         <option value="Specialized Certifications">Specialized Certifications (e.g., PMP, Six Sigma)</option>
         <option value="Others">Others</option>
       </select>
-
-      <!--................................Hidden input field..............................................................-->
-      <div id="otherQualification">
-      <input type="text" id="queryotherQualifications" name="queryotherQualifications" placeholder="Enter your other qualification">
+      
+      <!-- Hidden input field for custom qualification -->
+      <div id="customQualificationField" style="display: none; margin-top: 10px;">
+        <label for="customQualification">Enter Qualification:</label>
+        <input type="text" id="querycustomQualification" placeholder="Enter your qualification" />
       </div>
+      
 
       <!--................................Role And Resposnible ..............................................................-->
+      <label for="Roles & Responsible">Roles & Responsible:</label>
       <textarea id="queryRoleandresponsibilty" placeholder="Roles & Responsible" rows="5" required></textarea>
 
             <!--................................Recuirements..............................................................-->
+            <label for="Requirements">Requirements:</label>
       <input type="text" id="queryRequirements" placeholder=" Requirements" required>
 
 
@@ -301,6 +331,8 @@
       <!--................................Submit Query Form..............................................................-->
 
       <button type="submit">Submit Query</button>
+      
+      
       <button type="button" onclick="closeAddQueryForm()">Cancel</button>
     </form>
   </div>

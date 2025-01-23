@@ -16,6 +16,7 @@ class Employee(models.Model):
 
 
 class Vacancy(models.Model):
+  
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     job_title = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
@@ -23,6 +24,21 @@ class Vacancy(models.Model):
     requirements = models.TextField()
     created_at = models.DateTimeField(auto_now=True)
     department = models.CharField(max_length=100)
+    # Adding the new boolean field for approval status
+    is_approved = models.BooleanField(default=False)  # Default is False, meaning not approved
+
+
+
+    # APPROVAL_CHOICES = [
+    #     ('pending', 'Pending'),
+    #     ('approved', 'Approved'),
+    #     ('rejected', 'Rejected'),
+    # ]
+    # status = models.CharField(
+    #     max_length=10,
+    #     choices=APPROVAL_CHOICES,
+    #     default='pending',
+    # )
 
     def __str__(self):
         return self.job_title

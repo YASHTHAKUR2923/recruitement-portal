@@ -1018,7 +1018,7 @@ padding: 8px; /* Optional: Adds spacing around the table inside */
 
 
 
-    /* Search Section */
+/* Search Section */
 #search-section {
   display: flex;
   justify-content: center;
@@ -1048,3 +1048,5 @@ padding: 8px; /* Optional: Adds spacing around the table inside */
   color: #aaa;
   font-style: italic;
 }
+
+

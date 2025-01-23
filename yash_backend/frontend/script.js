@@ -1,5 +1,3 @@
-
-
 // this script is index.html
 // Role check for admin functionality
 // Get role from localStorage
@@ -8,17 +6,11 @@ const role = localStorage.getItem("role");
 // Show admin-specific elements
 if (role === "admin") {
   document.getElementById("career-link").style.display = "inline-block";
-
   document.getElementById("addQueryButton").style.display = "inline-block";
   document.getElementById("admin_dashboard").style.display = "inline-block";
   document.getElementById("form-link").style.display = "inline-block";
 
-
-
-  // document.getElementById("about-link").style.display = "inline-block";
 }
-
-
 
 // Open and close modal for adding a query
 function openAddQueryForm() {
@@ -33,6 +25,7 @@ function closeAddQueryForm() {
 
 // Retrieve stored queries and display them
 function loadQueries() {
+
   const storedQueries = JSON.parse(localStorage.getItem("queries")) || [];
   const queryList = document.getElementById("queryList");
   queryList.innerHTML = ""; // Clear existing queries
@@ -41,39 +34,87 @@ function loadQueries() {
     const queryCard = document.createElement("div");
 
 
+
     queryCard.className = "query-card";
     queryCard.innerHTML = `
       <div class="query-details">
-  
+          <h2 style="font-size:18px; color:#008089"> CREATED FOR (JD) :</h2>
           <strong>Job Title:</strong> ${query.jobTitle}<br>
-          <strong>Skills:</strong> ${query.Skills}<br>
-          <strong> Work_experience:</strong> ${query.Work_experience}<br>
-          <strong> qualification:</strong> ${query.qualification}<br>
-          <strong>Annual_salary_range:</strong> ${query.Annual_salary_range}<br>
-      <strong>Role and Responsibility:</strong> ${query.roleandresponsibilty}<br>
-      <strong>Location:</strong> ${query.location}<br>
+     
+          <strong>Required Skills:</strong> ${query.Skills}<br>
+          <strong> Prefered Work_experience:</strong> ${query.Work_experience}<br>
+          
+          <strong>Salary :</strong> ${query.Annual_salary_range}<br>
+          <strong>Role and Responsibility:</strong> ${query.roleandresponsibilty}<br>
+          <strong>Requirements:</strong> ${query.Requirements}<br>
+          <strong>Location:</strong> ${query.location}<br>
 
-    
+             <!-- Add underline after Location -->
+        
        ${role === "admin"
-   ? `<strong  >replacementDetails:</strong> ${query.replacementDetails}<br>
-      <strong  >vacancy nature: </strong>${query.vacancynature}<br>
-      <strong  >otherQualifications:</strong> ${query.otherQualifications}<br>
-      <strong  >department:${query.department}</strong> <br>
+
+        ? `
+        <div style="border-top: 2px solid black; margin: 10px 0;"></div>
+         <h2 style="font-size:18px; color:#008089">VACANCY DETAILS : </h2>
+   
+
+      <strong  >qualification:</strong> ${query.qualification}<br>
+  
+      <strong  >vacancynature:</strong> ${query.vacancynature}<br>
+    <strong  >Vacancy Type: </strong>${query.oldemployeeid}<br>
+      <strong  >replacementDetails:</strong> ${query.replacementDetails}<br>
+     
+ 
+   
+      <strong  >department:</strong>${query.department}<br>
       <strong  >SubDepartment: </strong>${query.SubDepartment}<br>
-      <strong  >interveiwer designation: </strong>${query.interveiwerdesignation} <br>
-      <strong  >interveiwer name: </strong> ${query.interveiwername}<br>
-      <strong  >interveiwer code: </strong>${query.interveiwercode}<br>
-      <strong  >old employeeid: </strong>${query.oldemployeeid}<br>
+ 
+   
      
        
-        <strong >Card No:</strong> ${query.cardNo}`
-        : ""
-      }
-     
+        <strong >Card No:</strong> ${query.cardNo}
+        
+        
+<!-- Add underline after Location -->
+      <div style="border-top: 2px solid black; margin: 10px 0;"></div>
+         <h2 style="font-size:18px; color:#008089">INTERVIEW TAKEN BY :</h2>
+
+      <strong  >interveiwer designation: </strong>${query.interveiwerdesignation}<br>
+      <strong  >interveiwer name: </strong> ${query.interveiwername}<br>
+      <strong  >interveiwer code: </strong>${query.interveiwercode}<br>
+
+
+
+
+           <!-- Employee Details Section -->
+          <div style="border-top: 2px solid black; margin: 10px 0;"></div>
+          <h2 style="font-size:18px; color:#008089">CREATED BY :</h2>
+          <strong>Name:</strong> ${query.employeeName || "Not Available"}<br>
+          <strong>Designation:</strong> ${query.employeeDesignation || "Not Available"}<br>
+          <strong>Department:</strong> ${query.employeeDepartment || "Not Available"}<br>
+          <strong>Mobile No:</strong> ${query.employeeMobileNo || "Not Available"}<br>
+          <strong>Email:</strong> ${query.employeeEmail || "Not Available"}<br>
       </div>
 
+        `
+
+
+
+
+        : ""
+      }
+         
       ${role === "admin"
-        ? `<button  class="delete-button" onclick="deleteQuery(${index})">Delete</button>`
+        ? `<button  class="delete-button" onclick="deleteQuery(${index})">Delete</button>
+       <button class="approve-button" id="approveButton" onclick="approveVacancy(${query.vacancy_id})">Approve</button>
+
+  <!-- Loading indicator -->
+  <div id="loading" class="loading-indicator" style="display: none;">
+    <div class="spinner"></div>
+    <span>Loading...</span>
+  </div>
+
+        `
         // `  <button class="modify-button" onclick="modifyQuery(${index})">Modify</button>`
         : ""
       }
@@ -82,6 +123,66 @@ function loadQueries() {
     queryList.appendChild(queryCard);
   });
 }
+
+// Function to approve the vacancy
+async function approveVacancy(vacancyId) {
+  const url = `http://localhost:8000/approve_vacancy/${vacancyId}/`;  // Adjust the URL if needed
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+    });
+    // Debugging step: log the response
+    const text = await response.text();
+    console.log(text);  // Log raw response text
+    // Try to parse as JSON if possible
+    const data = JSON.parse(text);
+    
+    //const data = await response.json();
+    if (response.status === 200) {
+      alert('Vacancy approved successfully!');
+      loadQueries(); // Refresh the list of queries
+    } else {
+      alert('Error approving vacancy: ' + data.message);
+    }
+  } catch (error) {
+    alert('Error: ' + error.message);
+  }
+}
+
+
+
+
+
+// Update stored queries with fetched employee data
+// async function fetchEmployeeData(cardNo) {
+//   const response = await fetch(`http://localhost:8000/get_employee?card_no=${cardNo}`);
+
+//   const data = await response.json();
+  
+
+//   // Ensure the data is appended to each query in localStorage
+//   let storedQueries = JSON.parse(localStorage.getItem("queries")) || [];
+//   storedQueries = storedQueries.map(query => {
+//     if (query.cardNo === cardNo) {
+//       return {
+//         ...query,
+//         employeeName: data.name,
+//         employeeDesignation: data.designation,
+//         employeeDepartment: data.department,
+//         employeeMobileNo: data.mobile_no,
+//         employeeEmail: data.email,
+//       };
+//     }
+//     return query;
+//   });
+
+//   localStorage.setItem("queries", JSON.stringify(storedQueries));
+//   loadQueries(); // Reload queries to show updated data
+
+// }
+
+
 
 // Function to redirect to the form page for applying
 function applyNow() {
@@ -93,13 +194,16 @@ document
   .getElementById("queryForm")
   .addEventListener("submit", async function (e) {
     e.preventDefault();
+    
+    
+
 
     // Get form data
 
 
     const replacementDetails = document.getElementById("queryreplacementDetails").value;
-    const otherQualifications = document.getElementById("queryotherQualifications").value;
     const qualification = document.getElementById("queryqualification").value;
+
     const Annual_salary_range = document.getElementById("queryAnnual_salary_range").value;
     const Work_experience = document.getElementById("queryWork_experience").value;
     const SubDepartment = document.getElementById("querySubDepartment").value;
@@ -115,6 +219,7 @@ document
     const requirements = document.getElementById("queryRequirements").value;
     const roleandresponsibilty = document.getElementById("queryRoleandresponsibilty").value;
     const cardNo = document.getElementById("queryCardNo").value;
+    // const employeeName = document.getElementById("query.employeeName").value;
 
     // API endpoint
     const url = "http://localhost:8000/create_vacancy";
@@ -142,15 +247,26 @@ document
 
       const data = await response.json();
       console.log(data);
+
       // Handle response
       if (response.status === 201) {
         alert("Vacancy created successfully!");
 
 
-
-
         // Save query to localStorage for offline access
-        const query = { vacancynature, oldemployeeid, interveiwercode, interveiwername, interveiwerdesignation, department, SubDepartment, Work_experience, Annual_salary_range, qualification, otherQualifications, replacementDetails, requirements, roleandresponsibilty, location, Skills, jobTitle, cardNo };
+        const query = { replacementDetails, oldemployeeid, interveiwercode, interveiwername, interveiwerdesignation, 
+          department, SubDepartment, Work_experience, vacancynature, Annual_salary_range, qualification, requirements, 
+          roleandresponsibilty, location, Skills, jobTitle, cardNo, 
+        
+         // Include employee details from the response
+      employeeName: data.name,
+      employeeDesignation: data.designation,
+      employeeDepartment: data.department,
+      employeeMobileNo: data.mobile_no,
+      employeeEmail: data.email,
+      vacancy_id: data.vacancy_id
+      
+        };
         const storedQueries = JSON.parse(localStorage.getItem("queries")) || [];
         storedQueries.push(query);
         localStorage.setItem("queries", JSON.stringify(storedQueries));
@@ -169,6 +285,24 @@ document
       alert("Failed to create a vacancy. Please check your connection and try again.");
     }
   });
+// // Function to approve the vacancy
+// async function approveVacancy(vacancyId) {
+//   const url = `http://localhost:8000/approve_vacancy/${vacancyId}/`;  // Adjust the URL if needed
+//   try {
+//     const response = await fetch(url, {
+//       method: 'POST',
+//     });
+//     const data = await response.json();
+//     if (response.status === 200) {
+//       alert('Vacancy approved successfully!');
+//       loadQueries(); // Refresh the list of queries
+//     } else {
+//       alert('Error approving vacancy: ' + data.message);
+//     }
+//   } catch (error) {
+//     alert('Error: ' + error.message);
+//   }
+// }
 
 // Delete a query from the list
 function deleteQuery(index) {
@@ -308,38 +442,23 @@ function scrollToBottom() {
 
 
 
-// // open input box other job Title
-// function handleOtherSelection() {
-//   const jobTitleDropdown = document.getElementById("queryJobTitle");
-//   const queryotherJobTitleDiv = document.getElementById("queryotherJobTitleDiv");
+function handleJobTitleChange() {
+  const jobTitleDropdown = document.getElementById("queryJobTitle");
+  const customJobTitleField = document.getElementById("customJobTitleField");
 
-//   if (jobTitleDropdown.value === "other") {
-//     queryotherJobTitleDiv.style.display = "block"; // Show the input field when "Other" is selected
-//   } else {
-//     queryotherJobTitleDiv.style.display = "none"; // Hide the input field for other selections
-//     document.getElementById("queryotherJobTitle").value = ""; // Clear the input field
-//   }
-// }
+  // Check if "Other" is selected
+  if (jobTitleDropdown.value === "other") {
+    customJobTitleField.style.display = "block"; // Show the input field
+  } else {
+    customJobTitleField.style.display = "none"; // Hide the input field
+    document.getElementById("customJobTitle").value = ""; // Clear the input field
+  }
+}
 
 // ...........................................................................................................
 
 
 // ....................open  input box click other  Qualification..........................................
-const queryqualificationSelect = document.getElementById('queryqualification');
-const otherQualificationDiv = document.getElementById('otherQualification');
-const queryotherQualifications = document.getElementById('queryotherQualifications');
-
-// Listen for changes on the dropdown
-queryqualificationSelect.addEventListener('change', () => {
-  if (queryqualificationSelect.value === 'Others') {
-    otherQualificationDiv.style.display = 'block'; // Show the input field
-    queryotherQualifications.required = true; // Make the input required
-  } else {
-    otherQualificationDiv.style.display = 'none'; // Hide the input field
-    queryotherQualifications.required = false; // Remove the required attribute
-    queryotherQualifications.value = ''; // Clear the input value
-  }
-});
 
 // ...........................................................................................................
 
@@ -360,17 +479,53 @@ function handleVacancySelection() {
 
 
 
-   // Function to filter jobs based on search input
-   function searchJobs() {
-    const input = document.getElementById("searchBar").value.toLowerCase();
-    const vacancies = document.querySelectorAll(".vacancy");
+// Function to filter jobs based on search input
+function searchJobs() {
+  const input = document.getElementById("searchBar").value.toLowerCase();
+  const vacancies = document.querySelectorAll(".vacancy");
 
-    vacancies.forEach((vacancy) => {
-      const title = vacancy.getAttribute("data-title").toLowerCase();
-      if (title.includes(input)) {
-        vacancy.style.display = "list-item";
-      } else {
-        vacancy.style.display = "none";
-      }
+  vacancies.forEach((vacancy) => {
+    const title = vacancy.getAttribute("data-title").toLowerCase();
+    if (title.includes(input)) {
+      vacancy.style.display = "list-item";
+    } else {
+      vacancy.style.display = "none";
+    }
+  });
+}
+
+
+
+function approveVacancy(vacancyId) {
+  // Show the loading indicator and disable the button
+  document.getElementById("loading").style.display = "block";
+  document.getElementById("approveButton").disabled = true;
+
+  // Simulate the approval process (replace with actual logic like API call)
+  approveVacancyAsync(vacancyId)
+    .then(() => {
+      // Hide the loading indicator after approval is complete
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("approveButton").disabled = false; // Re-enable button
+      alert("Vacancy approved!");
+    })
+    .catch((error) => {
+      // Handle any errors
+      console.error("Approval failed:", error);
+      document.getElementById("loading").style.display = "none"; // Hide loading on error
+      document.getElementById("approveButton").disabled = false; // Re-enable button
+      alert("Failed to approve vacancy.");
     });
-  }
+}
+
+// Simulate async approval (replace this with actual API call or approval logic)
+function approveVacancyAsync(vacancyId) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log(`Vacancy ${vacancyId} approved!`); // Replace with actual approval logic
+      resolve();
+    }, 2000); // Simulate 2-second delay for approval process
+  });
+}
+
+

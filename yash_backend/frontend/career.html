@@ -82,9 +82,9 @@
                     <th>Other Details</th>
                     <th>Status</th>
                     <th>Actions</th>
-                
-                    
-                    
+
+
+
                 </tr>
             </thead>
             <tbody id="applications-table-body">
@@ -98,7 +98,7 @@
 
 
 
-        <script>
+    <script>
         let applications = []; // Global variable to hold application data
 
         // Fetch applications from localStorage on page load
@@ -185,24 +185,24 @@
             displayApplications(filteredData);
         }
 
-        
+
         function downloadResume(index) {
-  const app = applications[index];
-  if (app.resume) {
-    const link = document.createElement("a");
-    link.href = app.resume;
-    link.download = app.resumeName || "resume";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  } else {
-    alert("No resume uploaded for this application.");
-  }
-}
+            const app = applications[index];
+            if (app.resume) {
+                const link = document.createElement("a");
+                link.href = app.resume;
+                link.download = app.resumeName || "resume";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else {
+                alert("No resume uploaded for this application.");
+            }
+        }
 
-      
 
-     
+
+
 
         // Export shortlisted candidates
         function exportShortlisted() {
@@ -213,9 +213,9 @@
             }
 
             let csvContent = "data:text/csv;charset=utf-8,";
-            csvContent += "Name,Email,Phone,Job Position,Resume Link\n";
+            csvContent += "Name,Email,Phone,Gender,Age,Qualification,Experience,Job Position,Current Company,Current Designation,Current Role,Current CTC,Expected CTC,Reason for Leaving,Current Location,Belongs To,Notice Period,Other Details,Status\n";
             shortlisted.forEach(app => {
-                csvContent += `${app.name},${app.email},${app.phone},${app.gender},${app.age},${app.qualification},${app.experience},${app.jobPosition},${app.currentCompany},${app.currentDesignation},${app.currentRole},${app.currentCTC},${app.expectedCTC},${app.reasonLeaving},${app.currentLocation},${app.belongsTo},${app.noticePeriod},${app.otherDetails},${app.resumeLink}\n`;
+                csvContent += `${app.name},${app.email},${app.phone},${app.gender},${app.age},${app.qualification},${app.experience},${app.jobPosition},${app.currentCompany},${app.currentDesignation},${app.currentRole},${app.currentCTC},${app.expectedCTC},${app.reasonLeaving},${app.currentLocation},${app.belongsTo},${app.noticePeriod},${app.otherDetails},${app.status},${app.actions}\n`;
             });
 
 

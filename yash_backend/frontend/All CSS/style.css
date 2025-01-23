@@ -1050,3 +1050,53 @@ padding: 8px; /* Optional: Adds spacing around the table inside */
 }
 
 
+/* Loading indicator container */
+.loading-indicator {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  padding: 20px;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  z-index: 1000;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Spinner animation */
+.spinner {
+  border: 4px solid transparent;
+  border-top: 4px solid #fff;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  animation: spin 1s linear infinite;
+}
+
+/* Spin animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Optional: Style for text */
+.loading-indicator span {
+  font-size: 16px;
+}
+/* ....................................................... */
+#loadingIndicator {
+  margin-left: 10px;
+  font-size: 14px;
+  color: rgb(5, 5, 5);
+}

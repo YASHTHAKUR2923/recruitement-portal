@@ -34,11 +34,14 @@ function loadQueries() {
     const queryCard = document.createElement("div");
 
 
-
     queryCard.className = "query-card";
     queryCard.innerHTML = `
       <div class="query-details">
-          <h2 style="font-size:18px; color:#008089"> CREATED FOR (JD) :</h2>
+
+
+    <h2 style="font-size:18px; color:#008089"> CREATED FOR (JD) :</h2>
+
+         
           <strong>Job Title:</strong> ${query.jobTitle}<br>
      
           <strong>Required Skills:</strong> ${query.Skills}<br>
@@ -113,6 +116,8 @@ function loadQueries() {
     <div class="spinner"></div>
     <span>Loading...</span>
   </div>
+
+
 
         `
         // `  <button class="modify-button" onclick="modifyQuery(${index})">Modify</button>`
@@ -191,9 +196,28 @@ function applyNow() {
 
 // Add query to the backend and update the UI
 document
-  .getElementById("queryForm")
-  .addEventListener("submit", async function (e) {
-    e.preventDefault();
+    .getElementById("queryForm")
+    .addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const button = document.getElementById("submitButton");
+      const loadingIndicator = document.getElementById("loadingIndicator");
+
+      // Show the loading indicator
+      loadingIndicator.style.display = "inline";
+
+      try {
+        // Simulate async operation (e.g., form submission)
+        await new Promise((resolve) => setTimeout(resolve, 10000));
+
+        // Perform your form submission logic here
+        console.log("Form submitted!");
+      } catch (error) {
+        console.error("Error submitting form:", error);
+      } finally {
+        // Hide the loading indicator
+        loadingIndicator.style.display = "none";
+      }
     
     
 

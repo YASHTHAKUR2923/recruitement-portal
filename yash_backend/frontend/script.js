@@ -58,7 +58,7 @@ function loadQueries() {
           <strong>Requirements:</strong> ${query.Requirements}<br>
           <strong>Location:</strong> ${query.location}<br>
 
-             <!-- Add underline after Location -->
+           
         
        ${role === "admin"
 
@@ -84,7 +84,7 @@ function loadQueries() {
         <strong >Card No:</strong> ${query.cardNo}
         
         
-<!-- Add underline after Location -->
+
       <div style="border-top: 2px solid black; margin: 10px 0;"></div>
          <h2 style="font-size:15px; color:#008089">INTERVIEW TAKEN BY :</h2>
 
@@ -94,8 +94,6 @@ function loadQueries() {
 
 
 
-
-           <!-- Employee Details Section -->
           <div style="border-top: 2px solid black; margin: 10px 0;"></div>
           <h2 style="font-size:15px; color:#008089">CREATED BY :</h2>
 
@@ -111,7 +109,7 @@ function loadQueries() {
          
       ${role === "admin"
         ? `<button  class="delete-button" onclick="deleteQuery(${index})">Delete</button>
-       <button class="approve-button" id="approveButton" onclick="approveVacancy(${query.vacancy_id})">Approve</button>
+       <button class="approve-button" id="approveButton" onclick="approvebackendVacany(${query.vacancy_id})">Approve</button>
 
   <!-- Loading indicator -->
   <div id="loading" class="loading-indicator" style="display: none;">
@@ -128,11 +126,12 @@ function loadQueries() {
 }
 
 // Function to approve the vacancy
-async function approveVacancy(vacancyId) {
+ async function approvebackendVacany(vacancyId) {
+  console.log(`vacancyId_ ${vacancyId}`)
   const url = `http://localhost:8000/approve_vacancy/${vacancyId}/`;  // Adjust the URL if needed
   
 
-  
+
   try {
     const response = await fetch(url, {
       method: 'POST',

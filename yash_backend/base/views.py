@@ -164,6 +164,7 @@ class ApproveVacancyView(APIView):
 
     def send_approval_email(self, employee_email, job_title, vacancy):
         # Send email to the employee who created the vacancy
+        print("function called")
         subject = f"Your Vacancy has been Approved for: {job_title}"
 
 

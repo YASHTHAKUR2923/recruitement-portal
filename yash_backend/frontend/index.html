@@ -55,7 +55,7 @@
   </section>
 
     <!-- Search Bar -->
-    <section id="search-section">
+    <section id="search-section" ">
       <input type="text" id="searchBar" placeholder="Search job titles..." onkeyup="searchJobs()" />
     </section>
 
@@ -202,7 +202,6 @@
 
       <!--................................ SHOW ONLY ADMIN DETAILS IN THE QUERY FROM ............................................-->
 
-
   
 
 
@@ -213,7 +212,7 @@
 
       <label for="JobTitle">Job Title:</label>
       <select id="queryJobTitle" required onchange="handleJobTitleChange()">
-        <option value="" disabled selected>Select Job Title</option>
+        <option  value="" disabled selected>Select Job Title</option>
         <option value="gm">GM</option>
         <option value="agm">AGM</option>
         <option value="assistant_manager">ASSISTANT MANAGER</option>
@@ -231,9 +230,8 @@
 
       <div id="customJobTitleField" style="display: none; margin-top: 10px;">
         <label for="customJobTitle">Enter Job Title:</label>
-        <input type="text" id="customJobTitle" placeholder="Enter your job title" />
+        <input type="text" id="jobtitle" placeholder="Enter your job title" />
       </div>
-     
       <label for="skills">Skills:</label>
       <textarea id="querySkills" placeholder="Skills" rows="3" required></textarea>
 

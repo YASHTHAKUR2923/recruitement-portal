@@ -66,12 +66,12 @@ class VacancyView(APIView):
             
 
             vacancy = Vacancy.objects.create(
-                employee=__get_employee,
+                employee=__get_employee,    
                 job_title=job_title,
                 location=location,
                 roles_and_responsibility=roles_and_responsibility,
                 requirements=requirements,
-                department=department,
+                department=department
                 
             )
 
@@ -89,7 +89,9 @@ class VacancyView(APIView):
             "designation": __get_employee.designation,
             "department": __get_employee.department,
             "mobile_no": __get_employee.mobile_no,
-            "email": __get_employee.email
+            "email": __get_employee.email,
+            "vacancy_id": vacancy.id,
+           # "refcode": vacancy.refcode,  # Add refcode to the response
         }
 
         return Response(
@@ -104,14 +106,14 @@ class VacancyView(APIView):
     def send_email_to_employee(self, email, job_title, location, roles_and_responsibility, requirements,department, vacancy_id):
         subject = f"New Vacancy Created: {job_title}"
 
-         # Construct the vacancy URL with the vacancy_id
+           # Construct the vacancy URL with the vacancy_id
         vacancy_url = f"{settings.FRONTEND_URL}/vacancy.html?vacancy_id={vacancy_id}"
 
         message = f"""
         Hi,
 
         A new vacancy has been created in {department}  department with below details.
-
+      VacancyCode: V_{department}_{vacancy_id}
         Job Title: {job_title}
         Location: {location}
         Roles and Responsibilities: {roles_and_responsibility}
@@ -145,6 +147,9 @@ class ApproveVacancyView(APIView):
             vacancy.is_approved = True
             vacancy.save()
 
+
+
+
             # Send approval email to the employee
             self.send_approval_email(employee.email, vacancy.job_title, vacancy)
 
@@ -152,12 +157,18 @@ class ApproveVacancyView(APIView):
                 "message": "Vacancy approved successfully"
             }, status=status.HTTP_200_OK)
 
+
         except Vacancy.DoesNotExist:
             return Response({"error": "Vacancy not found"}, status=status.HTTP_404_NOT_FOUND)
+        
 
     def send_approval_email(self, employee_email, job_title, vacancy):
         # Send email to the employee who created the vacancy
         subject = f"Your Vacancy has been Approved for: {job_title}"
+
+
+
+
         message = f"""
         Hi {vacancy.employee.name},
 
@@ -166,9 +177,10 @@ class ApproveVacancyView(APIView):
         Best Regards,
         Marque Impex Pvt.Ltd.
         """
-        recipient_email = vacancy.employee.email  # Assuming you have an 'employee' field related to the Vacancy model
+        
+        recipient_email = employee_email if employee_email else vacancy.employee.email  # Use passed email or default to vacancy's employee email 
 
         try:
-            send_mail(subject, message, 'impexmarque@gmail.com', [recipient_email])
+            send_mail(subject, message, 'ishirastogi12345@gmail.com', [recipient_email])
         except Exception as e:
             print(f"Error sending email: {e}")

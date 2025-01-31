@@ -24,22 +24,11 @@ class Vacancy(models.Model):
     requirements = models.TextField()
     created_at = models.DateTimeField(auto_now=True)
     department = models.CharField(max_length=100)
-    # Adding the new boolean field for approval status
     is_approved = models.BooleanField(default=False)  # Default is False, meaning not approved
+   # refcode = models.CharField(max_length=50, unique=True, blank=True)  # Add refcode field
 
 
-
-    # APPROVAL_CHOICES = [
-    #     ('pending', 'Pending'),
-    #     ('approved', 'Approved'),
-    #     ('rejected', 'Rejected'),
-    # ]
-    # status = models.CharField(
-    #     max_length=10,
-    #     choices=APPROVAL_CHOICES,
-    #     default='pending',
-    # )
-
-    def __str__(self):
+ 
+def __str__(self):
         return self.job_title
     

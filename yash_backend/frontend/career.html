@@ -277,14 +277,51 @@
 
     </script>
 
+<script>
+
+// Function to update status and send interview email via Gmail
+function updateStatus(index, status) {
+    applications[index].status = status;
+    localStorage.setItem("applications", JSON.stringify(applications)); // Save updated status
+    displayApplications(applications); // Refresh table
+
+    if (status === "Shortlisted") {
+        sendInterviewEmail(applications[index]); // Trigger email function
+    }
+}
+
+// Function to send interview email via Gmail
+function sendInterviewEmail(app) {
+    const subject = encodeURIComponent(`Interview Invitation - ${app.name}`);
+    const body = encodeURIComponent(`Dear ${app.name},
+
+We are pleased to inform you that you have been **shortlisted** for the interview for the position of **${app.jobPosition}** at **[MARQUE IMPEX]**. We were impressed with your profile and would love to discuss this opportunity further.
+
+### Interview Details:
+📅 **Date:** [Enter Date]  
+🕒 **Time:** [Enter Time]  
+🏢 **Location:** [Enter Address] (or **Google Meet/Zoom link**)  
+📞 **Contact Person:** [HR Name] ([HR Email] | [HR Phone Number])  
+
+During the interview, we will discuss your skills, experiences, and how you can contribute to our team. Please bring a copy of your **resume**, **ID proof**, and any **relevant certificates**.
+
+### Next Steps:
+Kindly confirm your availability by replying to this email at the earliest. If you have any questions, feel free to reach out.
+
+We look forward to meeting you and wish you the best for the interview!  
+
+Best regards,  
+[Your Name]  
+[MARQUE IMPEX]  
+[Your Email] | [Your Phone Number]  
+[Company Website (if any)]`);
+
+    const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${app.email}&su=${subject}&body=${body}`;
+    window.open(gmailLink, "_blank"); // Opens Gmail in a new tab
+}
 
 
-
-
-
-
-
-
+</script>
 
 </body>
 

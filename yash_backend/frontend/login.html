@@ -32,12 +32,17 @@
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
 
-            // Define credentials for admin and user
+            // Define credentials for admin, user, HR, and Manager
             const adminUsername = "admin";
             const adminPassword = "admin123";
             const userUsername = "user";
             const userPassword = "user123";
+            const hrUsername = "hr";
+            const hrPassword = "hr123";
+            const managerUsername = "manager";
+            const managerPassword = "manager123";
 
+            // Check for credentials
             if (username === adminUsername && password === adminPassword) {
                 localStorage.setItem("isLoggedIn", "true");
                 localStorage.setItem("role", "admin");
@@ -46,6 +51,14 @@
                 localStorage.setItem("isLoggedIn", "true");
                 localStorage.setItem("role", "user");
                 window.location.href = "index.html"; // Redirect for user
+            } else if (username === hrUsername && password === hrPassword) {
+                localStorage.setItem("isLoggedIn", "true");
+                localStorage.setItem("role", "hr");
+                window.location.href = "index.html"; // Redirect for HR
+            } else if (username === managerUsername && password === managerPassword) {
+                localStorage.setItem("isLoggedIn", "true");
+                localStorage.setItem("role", "manager");
+                window.location.href = "index.html"; // Redirect for Manager
             } else {
                 alert("Invalid username or password.");
             }

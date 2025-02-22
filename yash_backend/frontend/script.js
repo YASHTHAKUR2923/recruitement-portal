@@ -1,6 +1,7 @@
 // this script is index.html
 // Role check for admin functionality
 // Get role from localStorage
+
 const role = localStorage.getItem("role");
 
 // Show admin-specific elements
@@ -9,6 +10,18 @@ if (role === "admin") {
   document.getElementById("addQueryButton").style.display = "inline-block";
   document.getElementById("admin_dashboard").style.display = "inline-block";
   document.getElementById("form-link").style.display = "inline-block";
+
+}
+
+if ( role === "manager") {
+  document.getElementById("addQueryButton").style.display = "inline-block";
+  document.getElementById("form-link").style.display = "inline-block";
+  document.getElementById("career-link").style.display = "inline-block";
+}
+if ( role === "hr") {
+  document.getElementById("career-link").style.display = "inline-block";
+  document.getElementById("form-link").style.display = "inline-block";
+  document.getElementById("addQueryButton").style.display = "inline-block";
 
 }
 
@@ -39,26 +52,42 @@ function loadQueries() {
       <div class="query-details">
 
 
-
          ${role === "admin"
 
-        ? `
-    <h3 style="font-size:20px; color:#008089; margin-top:0; text-align: center;">VacancyCode: ${query.refcode}</h3>
-    <h2 style="font-size:15px; color:#008089"> CREATED FOR (JD) :  </h2>`
+        ? `   <h3 style="font-size:20px; color:#008089; margin-top:0; text-align: center;">VacancyCode: ${query.refcode}</h3>
+          <h2 style="font-size:15px; color:#008089"> CREATED FOR (JD) :  </h2>
+         `
         : ""
       }
          
+
+         ${role === "manager"
+
+        ? `   <h3 style="font-size:20px; color:#008089; margin-top:0; text-align: center;">VacancyCode: ${query.refcode}</h3>
+          <h2 style="font-size:15px; color:#008089"> CREATED FOR (JD) :  </h2>
+           `
+        : ""
+      }
+         
+      ${role === "hr"
+
+        ? `   <h3 style="font-size:20px; color:#008089; margin-top:0; text-align: center;">VacancyCode: ${query.refcode}</h3>
+        <h2 style="font-size:15px; color:#008089"> CREATED FOR (JD) :  </h2>
+`
+      : ""
+
+
+      }
           <strong>Job Title:</strong> ${query.jobTitle}<br>
-     
+          <strong>Work Title:</strong> ${query.otherJobTitle}<br>
           <strong>Required Skills:</strong> ${query.Skills}<br>
           <strong> Prefered Work_experience:</strong> ${query.Work_experience}<br>
-          
           <strong>Salary :</strong> ${query.Annual_salary_range}<br>
           <strong>Role and Responsibility:</strong> ${query.roleandresponsibilty}<br>
-          <strong>Requirements:</strong> ${query.Requirements}<br>
+          <strong>requirements:</strong> ${query.requirements}<br>
+         
           <strong>Location:</strong> ${query.location}<br>
 
-           
         
        ${role === "admin"
 
@@ -68,22 +97,12 @@ function loadQueries() {
    
 
       <strong  >qualification:</strong> ${query.qualification}<br>
-  
       <strong  >vacancynature:</strong> ${query.vacancynature}<br>
-    <strong  >Vacancy Type: </strong>${query.oldemployeeid}<br>
+      <strong  >Vacancy Type: </strong>${query.oldemployeeid}<br>
       <strong  >replacementDetails:</strong> ${query.replacementDetails}<br>
-     
- 
-   
       <strong  >department:</strong>${query.department}<br>
       <strong  >SubDepartment: </strong>${query.SubDepartment}<br>
- 
-   
-     
-       
         <strong >Card No:</strong> ${query.cardNo}
-        
-        
 
       <div style="border-top: 2px solid black; margin: 10px 0;"></div>
          <h2 style="font-size:15px; color:#008089">INTERVIEW TAKEN BY :</h2>
@@ -107,6 +126,93 @@ function loadQueries() {
         : ""
       }
          
+        ${role === "manager"
+
+        ? `     
+         
+
+        
+        
+ <div style="border-top: 2px solid black; margin: 10px 0;"></div>
+         <h2 style="font-size:15px; color:#008089">VACANCY DETAILS : </h2>
+   
+
+      <strong  >qualification:</strong> ${query.qualification}<br>
+      <strong  >vacancynature:</strong> ${query.vacancynature}<br>
+      <strong  >Vacancy Type: </strong>${query.oldemployeeid}<br>
+      <strong  >replacementDetails:</strong> ${query.replacementDetails}<br>
+      <strong  >department:</strong>${query.department}<br>
+      <strong  >SubDepartment: </strong>${query.SubDepartment}<br>
+        <strong >Card No:</strong> ${query.cardNo}
+
+      <div style="border-top: 2px solid black; margin: 10px 0;"></div>
+         <h2 style="font-size:15px; color:#008089">INTERVIEW TAKEN BY :</h2>
+
+      <strong  >interveiwer designation: </strong>${query.interveiwerdesignation}<br>
+      <strong  >interveiwer name: </strong> ${query.interveiwername}<br>
+      <strong  >interveiwer code: </strong>${query.interveiwercode}<br>
+
+
+
+          <div style="border-top: 2px solid black; margin: 10px 0;"></div>
+          <h2 style="font-size:15px; color:#008089">CREATED BY :</h2>
+
+        
+          <strong>Name:</strong> ${query.employeeName || "Not Available"}<br>
+          <strong>Designation:</strong> ${query.employeeDesignation || "Not Available"}<br>
+          <strong>Department:</strong> ${query.employeeDepartment || "Not Available"}<br>
+          <strong>Mobile No:</strong> ${query.employeeMobileNo || "Not Available"}<br>
+          <strong>Email:</strong> ${query.employeeEmail || "Not Available"}<br>
+
+
+`
+  : ""
+      }
+        ${role === "hr"
+
+        ? `     
+         
+
+        
+        
+ <div style="border-top: 2px solid black; margin: 10px 0;"></div>
+         <h2 style="font-size:15px; color:#008089">VACANCY DETAILS : </h2>
+   
+
+      <strong  >qualification:</strong> ${query.qualification}<br>
+      <strong  >vacancynature:</strong> ${query.vacancynature}<br>
+      <strong  >Vacancy Type: </strong>${query.oldemployeeid}<br>
+      <strong  >replacementDetails:</strong> ${query.replacementDetails}<br>
+      <strong  >department:</strong>${query.department}<br>
+      <strong  >SubDepartment: </strong>${query.SubDepartment}<br>
+        <strong >Card No:</strong> ${query.cardNo}
+
+      <div style="border-top: 2px solid black; margin: 10px 0;"></div>
+         <h2 style="font-size:15px; color:#008089">INTERVIEW TAKEN BY :</h2>
+
+      <strong  >interveiwer designation: </strong>${query.interveiwerdesignation}<br>
+      <strong  >interveiwer name: </strong> ${query.interveiwername}<br>
+      <strong  >interveiwer code: </strong>${query.interveiwercode}<br>
+
+
+
+          <div style="border-top: 2px solid black; margin: 10px 0;"></div>
+          <h2 style="font-size:15px; color:#008089">CREATED BY :</h2>
+
+        
+          <strong>Name:</strong> ${query.employeeName || "Not Available"}<br>
+          <strong>Designation:</strong> ${query.employeeDesignation || "Not Available"}<br>
+          <strong>Department:</strong> ${query.employeeDepartment || "Not Available"}<br>
+          <strong>Mobile No:</strong> ${query.employeeMobileNo || "Not Available"}<br>
+          <strong>Email:</strong> ${query.employeeEmail || "Not Available"}<br>
+
+<button  class="delete-button" onclick="deleteQuery(${index})">Delete</button>
+       <button class="approve-button" id="approveButton" onclick="approvebackendVacany(${query.vacancy_id})">Approve</button>
+`
+  : ""
+      }
+
+
       ${role === "admin"
         ? `<button  class="delete-button" onclick="deleteQuery(${index})">Delete</button>
        <button class="approve-button" id="approveButton" onclick="approvebackendVacany(${query.vacancy_id})">Approve</button>
@@ -120,10 +226,12 @@ function loadQueries() {
       }
       <button class="apply-button" onclick="applyNow()">Apply Now</button>
     `;
-    
+          
     queryList.appendChild(queryCard);
   });
 }
+
+// ...........................................................................................................................
 
 // Function to approve the vacancy
  async function approvebackendVacany(vacancyId) {
@@ -198,9 +306,10 @@ document
     const oldemployeeid = document.getElementById("queryoldemployeeid").value;
     const vacancynature = document.getElementById("queryvacancynature").value;
     const jobTitle = document.getElementById("queryJobTitle").value;
+    const otherJobTitle = document.getElementById("queryotherJobTitle").value;
     const Skills = document.getElementById("querySkills").value;
     const location = document.getElementById("queryLocation").value;
-    const requirements = document.getElementById("queryRequirements").value;
+    const requirements = document.getElementById("queryrequirements").value;
     const roleandresponsibilty = document.getElementById("queryRoleandresponsibilty").value;
     const cardNo = document.getElementById("queryCardNo").value;
     // const employeeName = document.getElementById("query.employeeName").value;
@@ -240,7 +349,7 @@ document
         const query = {
           replacementDetails, oldemployeeid, interveiwercode, interveiwername, interveiwerdesignation,
           department, SubDepartment, Work_experience, vacancynature, Annual_salary_range, qualification, requirements,
-          roleandresponsibilty, location, Skills, jobTitle, cardNo,
+          roleandresponsibilty, location, Skills, jobTitle, otherJobTitle, cardNo,
 
           // Include employee details from the response
           employeeName: data.name,
@@ -410,18 +519,19 @@ function scrollToBottom() {
 
 
 
-function handleJobTitleChange() {
-  const jobTitleDropdown = document.getElementById("queryJobTitle");
-  const customJobTitleField = document.getElementById("customJobTitleField");
 
-  // Check if "Other" is selected
-  if (jobTitleDropdown.value === "other") {
-    customJobTitleField.style.display = "block"; // Show the input field
-  } else {
-    customJobTitleField.style.display = "none"; // Hide the input field
-    document.getElementById("jobtitle").value = ""; // Clear the input field
+
+  function toggleInputField() {
+    var select = document.getElementById("queryJobTitle");
+    var otherInputDiv = document.getElementById("otherJobTitleDiv");
+    if (select.value === "other") {
+      otherInputDiv.style.display = "block";
+    } else {
+      otherInputDiv.style.display = "none";
+    }
   }
-}
+
+
 
 // ...........................................................................................................
 

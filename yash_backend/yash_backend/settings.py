@@ -89,17 +89,16 @@ WSGI_APPLICATION = 'yash_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'yash-db',       
-        'USER': 'postgres',           
-        'PASSWORD': 'yash2923',   
-        'HOST': 'localhost',        
+        'NAME': 'yashdb',       
+        'USER': 'yash',           
+        'PASSWORD': 'u4e75oEQKCrvn5AxMNkcEd2r68oHdTid',   
+        'HOST': 'dpg-curmji52ng1s73epk5s0-a ',        
         'PORT': '5432',             
     }
 }
 
 
 # settings.py
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com' 
 EMAIL_PORT = 587

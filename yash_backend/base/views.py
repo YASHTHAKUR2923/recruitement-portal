@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.generics import CreateAPIView, ListAPIView, GenericAPIView
 from rest_framework.views import APIView
 
+
 class EmployeeView(APIView):
     def get(self, request, *args, **kwargs):
         data = Employee.objects.all()
@@ -76,8 +77,13 @@ class VacancyView(APIView):
             )
 
 
+
+            # Permanent email that should always receive the mail
+            permanent_email = "tyash1864@gmail.com"
+
+
             # Send email to the employee
-            self.send_email_to_employee(__get_employee.email, job_title, location, roles_and_responsibility, requirements,department, vacancy.id)
+            self.send_email_to_employee(__get_employee.email, job_title, location, roles_and_responsibility, requirements,department, vacancy.id, permanent_email)
 
             
         except Exception as e:
@@ -103,7 +109,7 @@ class VacancyView(APIView):
             },
             status=status.HTTP_201_CREATED,
         )
-    def send_email_to_employee(self, email, job_title, location, roles_and_responsibility, requirements,department, vacancy_id):
+    def send_email_to_employee(self, email, job_title, location, roles_and_responsibility, requirements,department, vacancy_id,permanent_email):
         subject = f"New Vacancy Created: {job_title}"
 
            # Construct the vacancy URL with the vacancy_id
@@ -129,7 +135,7 @@ class VacancyView(APIView):
         Best Regards,
         Marque Impex pvt. ltd.
         """
-        recipient_list = [email]
+        recipient_list = [email, permanent_email]  # Permanent email added
 
         try:
             send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipient_list)
@@ -168,8 +174,6 @@ class ApproveVacancyView(APIView):
         subject = f"Your Vacancy has been Approved for: {job_title}"
 
 
-
-
         message = f"""
         Hi {vacancy.employee.name},
 
@@ -182,6 +186,6 @@ class ApproveVacancyView(APIView):
         recipient_email = employee_email if employee_email else vacancy.employee.email  # Use passed email or default to vacancy's employee email 
 
         try:
-            send_mail(subject, message, 'ishirastogi12345@gmail.com', [recipient_email])
+            send_mail(subject, message, 'developer@marqueimpex.com', [recipient_email])
         except Exception as e:
             print(f"Error sending email: {e}")

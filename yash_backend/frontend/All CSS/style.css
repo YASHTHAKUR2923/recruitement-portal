@@ -4,6 +4,34 @@ body {
   padding: 0;
   background-color: #f4f4f4;
 }
+
+
+/* Decorative Background Elements */
+body::before {
+  content: '';
+  position: fixed;
+  top: -50px;
+  left: -50px;
+  width: 200px;
+  height: 200px;
+  background: rgba(0, 74, 173, 0.1);
+  border-radius: 50%;
+  z-index: -1;
+}
+
+
+
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -50px;
+  right: -50px;
+  width: 250px;
+  height: 250px;
+  background: rgba(0, 43, 111, 0.1);
+  border-radius: 50%;
+  z-index: -1;
+}
 nav ul {
   list-style-type: none;
   margin: 0;

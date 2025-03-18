@@ -89,10 +89,10 @@ WSGI_APPLICATION = 'yash_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'yashdb',       
-        'USER': 'yash',           
-        'PASSWORD': 'u4e75oEQKCrvn5AxMNkcEd2r68oHdTid',   
-        'HOST': 'dpg-curmji52ng1s73epk5s0-a ',        
+        'NAME': 'yash-db',       
+        'USER': 'postgres',           
+        'PASSWORD': 'yash2923',   
+        'HOST': 'localhost',        
         'PORT': '5432',             
     }
 }

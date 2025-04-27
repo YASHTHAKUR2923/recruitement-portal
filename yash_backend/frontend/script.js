@@ -10,19 +10,17 @@ if (role === "admin") {
   document.getElementById("addQueryButton").style.display = "inline-block";
   document.getElementById("admin_dashboard").style.display = "inline-block";
   document.getElementById("form-link").style.display = "inline-block";
-
 }
 
-if ( role === "manager") {
+if (role === "manager") {
   document.getElementById("addQueryButton").style.display = "inline-block";
   document.getElementById("form-link").style.display = "inline-block";
   document.getElementById("career-link").style.display = "inline-block";
 }
-if ( role === "hr") {
+if (role === "hr") {
   document.getElementById("career-link").style.display = "inline-block";
   document.getElementById("form-link").style.display = "inline-block";
   document.getElementById("addQueryButton").style.display = "inline-block";
-
 }
 
 // Open and close modal for adding a query
@@ -38,7 +36,6 @@ function closeAddQueryForm() {
 
 // Retrieve stored queries and display them
 function loadQueries() {
-
   const storedQueries = JSON.parse(localStorage.getItem("queries")) || [];
   const queryList = document.getElementById("queryList");
   queryList.innerHTML = ""; // Clear existing queries
@@ -46,52 +43,53 @@ function loadQueries() {
   storedQueries.forEach((query, index) => {
     const queryCard = document.createElement("div");
 
-
     queryCard.className = "query-card";
     queryCard.innerHTML = `
       <div class="query-details">
 
 
-         ${role === "admin"
-
-        ? `   <h3 style="font-size:20px; color:#008089; margin-top:0; text-align: center;">VacancyCode: ${query.refcode}</h3>
+         ${
+           role === "admin"
+             ? `   <h3 style="font-size:20px; color:#008089; margin-top:0; text-align: center;">VacancyCode: ${query.refcode}</h3>
           <h2 style="font-size:15px; color:#008089"> CREATED FOR (JD) :  </h2>
          `
-        : ""
-      }
+             : ""
+         }
          
 
-         ${role === "manager"
-
-        ? `   <h3 style="font-size:20px; color:#008089; margin-top:0; text-align: center;">VacancyCode: ${query.refcode}</h3>
+         ${
+           role === "manager"
+             ? `   <h3 style="font-size:20px; color:#008089; margin-top:0; text-align: center;">VacancyCode: ${query.refcode}</h3>
           <h2 style="font-size:15px; color:#008089"> CREATED FOR (JD) :  </h2>
            `
-        : ""
-      }
+             : ""
+         }
          
-      ${role === "hr"
-
-        ? `   <h3 style="font-size:20px; color:#008089; margin-top:0; text-align: center;">VacancyCode: ${query.refcode}</h3>
+      ${
+        role === "hr"
+          ? `   <h3 style="font-size:20px; color:#008089; margin-top:0; text-align: center;">VacancyCode: ${query.refcode}</h3>
         <h2 style="font-size:15px; color:#008089"> CREATED FOR (JD) :  </h2>
 `
-      : ""
-
-
+          : ""
       }
           <strong>Job Title:</strong> ${query.jobTitle}<br>
           <strong>Work Title:</strong> ${query.otherJobTitle}<br>
           <strong>Required Skills:</strong> ${query.Skills}<br>
-          <strong> Prefered Work_experience:</strong> ${query.Work_experience}<br>
+          <strong> Prefered Work_experience:</strong> ${
+            query.Work_experience
+          }<br>
           <strong>Salary :</strong> ${query.Annual_salary_range}<br>
-          <strong>Role and Responsibility:</strong> ${query.roleandresponsibilty}<br>
+          <strong>Role and Responsibility:</strong> ${
+            query.roleandresponsibilty
+          }<br>
           <strong>requirements:</strong> ${query.requirements}<br>
          
           <strong>Location:</strong> ${query.location}<br>
 
         
-       ${role === "admin"
-
-        ? `
+       ${
+         role === "admin"
+           ? `
         <div style="border-top: 2px solid black; margin: 10px 0;"></div>
          <h2 style="font-size:15px; color:#008089">VACANCY DETAILS : </h2>
    
@@ -107,7 +105,9 @@ function loadQueries() {
       <div style="border-top: 2px solid black; margin: 10px 0;"></div>
          <h2 style="font-size:15px; color:#008089">INTERVIEW TAKEN BY :</h2>
 
-      <strong  >interveiwer designation: </strong>${query.interveiwerdesignation}<br>
+      <strong  >interveiwer designation: </strong>${
+        query.interveiwerdesignation
+      }<br>
       <strong  >interveiwer name: </strong> ${query.interveiwername}<br>
       <strong  >interveiwer code: </strong>${query.interveiwercode}<br>
 
@@ -118,17 +118,23 @@ function loadQueries() {
 
         
           <strong>Name:</strong> ${query.employeeName || "Not Available"}<br>
-          <strong>Designation:</strong> ${query.employeeDesignation || "Not Available"}<br>
-          <strong>Department:</strong> ${query.employeeDepartment || "Not Available"}<br>
-          <strong>Mobile No:</strong> ${query.employeeMobileNo || "Not Available"}<br>
+          <strong>Designation:</strong> ${
+            query.employeeDesignation || "Not Available"
+          }<br>
+          <strong>Department:</strong> ${
+            query.employeeDepartment || "Not Available"
+          }<br>
+          <strong>Mobile No:</strong> ${
+            query.employeeMobileNo || "Not Available"
+          }<br>
           <strong>Email:</strong> ${query.employeeEmail || "Not Available"}<br>
       </div>`
-        : ""
-      }
+           : ""
+       }
          
-        ${role === "manager"
-
-        ? `     
+        ${
+          role === "manager"
+            ? `     
          
 
         
@@ -148,7 +154,9 @@ function loadQueries() {
       <div style="border-top: 2px solid black; margin: 10px 0;"></div>
          <h2 style="font-size:15px; color:#008089">INTERVIEW TAKEN BY :</h2>
 
-      <strong  >interveiwer designation: </strong>${query.interveiwerdesignation}<br>
+      <strong  >interveiwer designation: </strong>${
+        query.interveiwerdesignation
+      }<br>
       <strong  >interveiwer name: </strong> ${query.interveiwername}<br>
       <strong  >interveiwer code: </strong>${query.interveiwercode}<br>
 
@@ -159,18 +167,24 @@ function loadQueries() {
 
         
           <strong>Name:</strong> ${query.employeeName || "Not Available"}<br>
-          <strong>Designation:</strong> ${query.employeeDesignation || "Not Available"}<br>
-          <strong>Department:</strong> ${query.employeeDepartment || "Not Available"}<br>
-          <strong>Mobile No:</strong> ${query.employeeMobileNo || "Not Available"}<br>
+          <strong>Designation:</strong> ${
+            query.employeeDesignation || "Not Available"
+          }<br>
+          <strong>Department:</strong> ${
+            query.employeeDepartment || "Not Available"
+          }<br>
+          <strong>Mobile No:</strong> ${
+            query.employeeMobileNo || "Not Available"
+          }<br>
           <strong>Email:</strong> ${query.employeeEmail || "Not Available"}<br>
 
 
 `
-  : ""
-      }
-        ${role === "hr"
-
-        ? `     
+            : ""
+        }
+        ${
+          role === "hr"
+            ? `     
          
 
         
@@ -190,7 +204,9 @@ function loadQueries() {
       <div style="border-top: 2px solid black; margin: 10px 0;"></div>
          <h2 style="font-size:15px; color:#008089">INTERVIEW TAKEN BY :</h2>
 
-      <strong  >interveiwer designation: </strong>${query.interveiwerdesignation}<br>
+      <strong  >interveiwer designation: </strong>${
+        query.interveiwerdesignation
+      }<br>
       <strong  >interveiwer name: </strong> ${query.interveiwername}<br>
       <strong  >interveiwer code: </strong>${query.interveiwercode}<br>
 
@@ -201,20 +217,29 @@ function loadQueries() {
 
         
           <strong>Name:</strong> ${query.employeeName || "Not Available"}<br>
-          <strong>Designation:</strong> ${query.employeeDesignation || "Not Available"}<br>
-          <strong>Department:</strong> ${query.employeeDepartment || "Not Available"}<br>
-          <strong>Mobile No:</strong> ${query.employeeMobileNo || "Not Available"}<br>
+          <strong>Designation:</strong> ${
+            query.employeeDesignation || "Not Available"
+          }<br>
+          <strong>Department:</strong> ${
+            query.employeeDepartment || "Not Available"
+          }<br>
+          <strong>Mobile No:</strong> ${
+            query.employeeMobileNo || "Not Available"
+          }<br>
           <strong>Email:</strong> ${query.employeeEmail || "Not Available"}<br>
 
 <button  class="delete-button" onclick="deleteQuery(${index})">Delete</button>
-       <button class="approve-button" id="approveButton" onclick="approvebackendVacany(${query.vacancy_id})">Approve</button>
+       <button class="approve-button" id="approveButton" onclick="approvebackendVacany(${
+         query.vacancy_id
+       })">Approve</button>
 `
-  : ""
-      }
+            : ""
+        }
 
 
-      ${role === "admin"
-        ? `<button  class="delete-button" onclick="deleteQuery(${index})">Delete</button>
+      ${
+        role === "admin"
+          ? `<button  class="delete-button" onclick="deleteQuery(${index})">Delete</button>
        <button class="approve-button" id="approveButton" onclick="approvebackendVacany(${query.vacancy_id})">Approve</button>
 
   <!-- Loading indicator -->
@@ -222,11 +247,11 @@ function loadQueries() {
     <div class="spinner"></div>
     <span>Loading...</span>
   </div>`
-        : ""
+          : ""
       }
       <button class="apply-button" onclick="applyNow()">Apply Now</button>
     `;
-          
+
     queryList.appendChild(queryCard);
   });
 }
@@ -234,31 +259,29 @@ function loadQueries() {
 // ...........................................................................................................................
 
 // Function to approve the vacancy
- async function approvebackendVacany(vacancyId) {
-  console.log(`vacancyId_ ${vacancyId}`)
-  const url = `http://localhost:8000/approve_vacancy/${vacancyId}/`;  // Adjust the URL if needed
-  
-
+async function approvebackendVacany(vacancyId) {
+  console.log(`vacancyId_ ${vacancyId}`);
+  const url = `http://localhost:8000/approve_vacancy/${vacancyId}/`; // Adjust the URL if needed
 
   try {
     const response = await fetch(url, {
-      method: 'POST',
+      method: "POST",
     });
     // Debugging step: log the response
     const text = await response.text();
-    console.log(text);  // Log raw response text
+    console.log(text); // Log raw response text
     // Try to parse as JSON if possible
     const data = JSON.parse(text);
 
     //const data = await response.json();
     if (response.status === 200) {
-      alert('Vacancy approved successfully!');
+      alert("Vacancy approved successfully!");
       loadQueries(); // Refresh the list of queries
     } else {
-      alert('Error approving vacancy: ' + data.message);
+      alert("Error approving vacancy: " + data.message);
     }
   } catch (error) {
-    alert('Error: ' + error.message);
+    alert("Error: " + error.message);
   }
 }
 
@@ -292,17 +315,28 @@ document
       loadingIndicator.style.display = "none";
     }
 
-
     // Get form data
-    const replacementDetails = document.getElementById("queryreplacementDetails").value;
+    const replacementDetails = document.getElementById(
+      "queryreplacementDetails"
+    ).value;
     const qualification = document.getElementById("queryqualification").value;
-    const Annual_salary_range = document.getElementById("queryAnnual_salary_range").value;
-    const Work_experience = document.getElementById("queryWork_experience").value;
+    const Annual_salary_range = document.getElementById(
+      "queryAnnual_salary_range"
+    ).value;
+    const Work_experience = document.getElementById(
+      "queryWork_experience"
+    ).value;
     const SubDepartment = document.getElementById("querySubDepartment").value;
     const department = document.getElementById("querydepartment").value;
-    const interveiwerdesignation = document.getElementById("queryinterveiwerdesignation").value;
-    const interveiwername = document.getElementById("queryinterveiwername").value;
-    const interveiwercode = document.getElementById("queryinterveiwercode").value;
+    const interveiwerdesignation = document.getElementById(
+      "queryinterveiwerdesignation"
+    ).value;
+    const interveiwername = document.getElementById(
+      "queryinterveiwername"
+    ).value;
+    const interveiwercode = document.getElementById(
+      "queryinterveiwercode"
+    ).value;
     const oldemployeeid = document.getElementById("queryoldemployeeid").value;
     const vacancynature = document.getElementById("queryvacancynature").value;
     const jobTitle = document.getElementById("queryJobTitle").value;
@@ -310,7 +344,9 @@ document
     const Skills = document.getElementById("querySkills").value;
     const location = document.getElementById("queryLocation").value;
     const requirements = document.getElementById("queryrequirements").value;
-    const roleandresponsibilty = document.getElementById("queryRoleandresponsibilty").value;
+    const roleandresponsibilty = document.getElementById(
+      "queryRoleandresponsibilty"
+    ).value;
     const cardNo = document.getElementById("queryCardNo").value;
     // const employeeName = document.getElementById("query.employeeName").value;
 
@@ -344,12 +380,26 @@ document
       if (response.status === 201) {
         alert("Vacancy created successfully!");
 
-
         // Save query to localStorage for offline access
         const query = {
-          replacementDetails, oldemployeeid, interveiwercode, interveiwername, interveiwerdesignation,
-          department, SubDepartment, Work_experience, vacancynature, Annual_salary_range, qualification, requirements,
-          roleandresponsibilty, location, Skills, jobTitle, otherJobTitle, cardNo,
+          replacementDetails,
+          oldemployeeid,
+          interveiwercode,
+          interveiwername,
+          interveiwerdesignation,
+          department,
+          SubDepartment,
+          Work_experience,
+          vacancynature,
+          Annual_salary_range,
+          qualification,
+          requirements,
+          roleandresponsibilty,
+          location,
+          Skills,
+          jobTitle,
+          otherJobTitle,
+          cardNo,
 
           // Include employee details from the response
           employeeName: data.name,
@@ -359,8 +409,7 @@ document
           employeeEmail: data.email,
           vacancy_id: data.vacancy_id,
           // Generate refcode
-          refcode: `V_${data.department || ''}_${data.vacancy_id || ''}`, // Add refcode to the data object
-
+          refcode: `V_${data.department || ""}_${data.vacancy_id || ""}`, // Add refcode to the data object
         };
         const storedQueries = JSON.parse(localStorage.getItem("queries")) || [];
         storedQueries.push(query);
@@ -377,7 +426,9 @@ document
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("Failed to create a vacancy. Please check your connection and try again.");
+      alert(
+        "Failed to create a vacancy. Please check your connection and try again."
+      );
     }
   });
 
@@ -442,7 +493,8 @@ function saveFormData(event) {
         resumeName: fileInput.name, // Save file name
       };
 
-      const applications = JSON.parse(localStorage.getItem("applications")) || [];
+      const applications =
+        JSON.parse(localStorage.getItem("applications")) || [];
       applications.push(formData);
       localStorage.setItem("applications", JSON.stringify(applications));
 
@@ -458,7 +510,6 @@ function saveFormData(event) {
 
 // Clear the form fields
 document.querySelector("form").reset();
-
 
 // Logout functionality
 function logout() {
@@ -476,8 +527,6 @@ if (localStorage.getItem("isLoggedIn") !== "true") {
 window.onload = loadQueries;
 
 // ............................................................................................................
-
-
 
 // drop down button
 function toggleDropdown() {
@@ -501,40 +550,30 @@ document.addEventListener("click", function (event) {
 
 // ............................................................................................................
 
-
-
 // scrolling css  of query box
 function scrollToTop() {
-  const modal = document.getElementById('queryModal');
-  modal.scrollTo({ top: 0, behavior: 'smooth' });
+  const modal = document.getElementById("queryModal");
+  modal.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function scrollToBottom() {
-  const modal = document.getElementById('queryModal');
-  modal.scrollTo({ top: modal.scrollHeight, behavior: 'smooth' });
+  const modal = document.getElementById("queryModal");
+  modal.scrollTo({ top: modal.scrollHeight, behavior: "smooth" });
 }
 
-
 // ...........................................................................................................
 
-
-
-
-
-  function toggleInputField() {
-    var select = document.getElementById("queryJobTitle");
-    var otherInputDiv = document.getElementById("otherJobTitleDiv");
-    if (select.value === "other") {
-      otherInputDiv.style.display = "block";
-    } else {
-      otherInputDiv.style.display = "none";
-    }
+function toggleInputField() {
+  var select = document.getElementById("queryJobTitle");
+  var otherInputDiv = document.getElementById("otherJobTitleDiv");
+  if (select.value === "other") {
+    otherInputDiv.style.display = "block";
+  } else {
+    otherInputDiv.style.display = "none";
   }
-
-
+}
 
 // ...........................................................................................................
-
 
 // ....................open  input box click other  Qualification..........................................
 
@@ -544,8 +583,9 @@ function scrollToBottom() {
 
 function handleVacancySelection() {
   const select = document.getElementById("queryoldemployeeid");
-  const queryreplacementInput = document.getElementById("queryreplacementInput");
-
+  const queryreplacementInput = document.getElementById(
+    "queryreplacementInput"
+  );
 
   // Show the input field if "Replacement" is selected
   if (select.value === "Replacement") {
@@ -554,8 +594,6 @@ function handleVacancySelection() {
     queryreplacementInput.style.display = "none"; // Hide it for other selections
   }
 }
-
-
 
 // Function to filter jobs based on search input
 function searchJobs() {
@@ -571,8 +609,6 @@ function searchJobs() {
     }
   });
 }
-
-
 
 function approveVacancy(vacancyId) {
   // Show the loading indicator and disable the button
@@ -605,5 +641,3 @@ function approveVacancyAsync(vacancyId) {
     }, 2000); // Simulate 2-second delay for approval process
   });
 }
-
-
